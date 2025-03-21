@@ -7,14 +7,14 @@ export default function Home() {
       
 
       {/* Hero Section */}
-      <header className="bg-blue-600 text-white py-20 text-center">
+      <header className="bg-gray-800 text-white py-20 text-center">
         <h1 className="text-4xl font-bold">Empower Your Learning & Time Management</h1>
         <p className="mt-4 text-lg">A smart platform to manage courses and schedule your study time efficiently.</p>
         <button className="mt-6 px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-200 cursor-pointer">
           Get Started
         </button>
       </header>
-      
+
 
       {/* Features Section */}
       <section className="py-16 px-6">

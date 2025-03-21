@@ -5,6 +5,7 @@ import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import scheduleRoutes from './routes/ScheduleRouters.js'
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(cors());
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use("/api/schedules", scheduleRoutes);
 
 
 
@@ -46,6 +48,7 @@ app.use((err, req, res, next) => {
   app.listen(3000, () => {
     console.log('Server Listening on port 3000!');
 });
+
 
 
 

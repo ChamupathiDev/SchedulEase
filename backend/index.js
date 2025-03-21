@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.route.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import scheduleRoutes from './routes/ScheduleRouters.js'
+import moodRoute from './routes/moodRoute.js'
 
 dotenv.config();
 
@@ -21,11 +22,9 @@ app.use(cors());
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use("/api/schedules", scheduleRoutes);
+app.use('/api/mood', moodRoute);
 
 
-
-
-  
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;

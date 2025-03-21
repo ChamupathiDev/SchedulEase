@@ -7,8 +7,8 @@ import Footer from "../components/Footer.jsx";
 
 export default function Profile() {
   const [formData, setFormData] = useState({});
-  const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
+  const fileRef = useRef(null);
   const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
@@ -59,7 +59,6 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-cover bg-top bg-[url('https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')] mt-[-40px]">
-    
       <div className="p-3 max-w-lg mx-auto mt-10">
         {/* Profile Card Design */}
         <div className="bg-white shadow-lg rounded-lg p-6">
@@ -77,7 +76,7 @@ export default function Profile() {
 
             {/* Input Fields */}
             <input
-              defaultValue={currentUser.username}
+              value={currentUser.username}  // This will make it persistent
               type="text"
               id="username"
               placeholder="Username"
@@ -85,7 +84,7 @@ export default function Profile() {
               onChange={handleChange}
             />
             <input
-              defaultValue={currentUser.email}
+              value={currentUser.email}  // This will make it persistent
               type="email"
               id="email"
               placeholder="Email"
@@ -93,6 +92,7 @@ export default function Profile() {
               onChange={handleChange}
             />
             <input
+              value={currentUser.password}
               type="password"
               id="password"
               placeholder="Password"
@@ -130,11 +130,9 @@ export default function Profile() {
         <p className="text-red-700 mt-5">{error && "Something went wrong!"}</p>
         <p className="text-green-700 mt-5">{updateSuccess && "User updated successfully!"}</p>
       </div>
-      
+
       {/* Footer */}
       <Footer />
-      
     </div>
-
   );
 }

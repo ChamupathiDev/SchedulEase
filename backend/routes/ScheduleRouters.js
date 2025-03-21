@@ -12,7 +12,7 @@ router.put("/:id",updateSchedule);
 router.delete("/:id",deleteSchedule);
 
 
-router.get("/view/:id",verifyToken, getSchedulesByGmail);
+router.get("/view/:email", verifyToken, getSchedulesByGmail);
 
 
 //export

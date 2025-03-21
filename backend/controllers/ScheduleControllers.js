@@ -15,6 +15,7 @@ const getAllSchedules = async (req, res) => {
     }
 };
 
+
 // Add a schedule
 const addSchedules = async (req, res) => {
     const { scheduleId, moduleName, email, moduleId, scheduleDate, scheduleType, startTime, endTime } = req.body;
@@ -104,27 +105,24 @@ const deleteSchedule = async (req, res) => {
 // Get schedules by email
 const getSchedulesByGmail = async (req, res, next) => {
     try {
-
-        // Find user by ID from URL param
-        const schedules = await Schedule.findById(req.params.id);
-        if (!schedules) return next(errorHandler(404, 'Schedule not found!'));
-
-        // Check if email in token matches user's email
-        if (req.user.email !== schedules.email) {
-            return next(errorHandler(401, 'You can get only your schedule!'));
-        }
-        
-
-        if (!schedules || schedules.length === 0) {
-            return res.status(404).json({ message: "No schedules found for this email" });
-        }
-
-        return res.status(200).json({ schedules });
+      // Find schedules by email from URL param
+      const schedules = await Schedule.find({ email: req.params.email });
+      if (!schedules || schedules.length === 0) {
+        return res.status(404).json({ message: "No schedules found for this email" });
+      }
+      
+      // Check if email in token matches the email in the URL
+      if (req.user.email !== req.params.email) {
+        return next(errorHandler(401, 'You can get only your schedule!'));
+      }
+  
+      return res.status(200).json({ schedules });
     } catch (err) {
-        console.error("Error fetching schedules by email:", err);
-        return res.status(500).json({ message: "Error fetching schedules", error: err.message });
+      console.error("Error fetching schedules by email:", err);
+      return res.status(500).json({ message: "Error fetching schedules", error: err.message });
     }
-};
+  };
+  
 
 export { getAllSchedules, addSchedules, getById, updateSchedule, deleteSchedule, getSchedulesByGmail };
 

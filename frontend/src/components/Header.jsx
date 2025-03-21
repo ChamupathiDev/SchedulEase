@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 export default function Header() {
   const {currentUser} = useSelector(state => state.user);
   return (
     <div className="bg-slate-200">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
-        <Link to="/">
+        <Link to="/" className="flex items-center gap-2 whitespace-nowrap">
+          <FaRegCalendarAlt className="text-xl text-blue-600 gap-2" /> 
           <h1 className="font-bold">SchedulEase</h1>
         </Link>
         <ul className="flex gap-4 ">

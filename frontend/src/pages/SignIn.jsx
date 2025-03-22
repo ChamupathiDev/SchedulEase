@@ -69,6 +69,12 @@ export default function SignIn() {
           <span className="text-blue-500">Sign up</span>
         </Link>
       </div>
+      <div className="flex gap-2 mt-2">
+          <p>{"Admin login"}</p>
+          <a href="/adminlogin" className="text-blue-500">
+            Admin login
+          </a>
+      </div>
       <p className="text-red-700 mt-5">{error || ''}</p>
       
     </div>

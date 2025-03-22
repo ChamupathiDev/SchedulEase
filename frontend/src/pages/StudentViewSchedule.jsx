@@ -22,6 +22,8 @@ const StudentViewSchedules = () => {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [mood, setMood] = useState('');
+  const [moodSubmitting, setMoodSubmitting] = useState(false);
+  const [moodSubmitSuccess, setMoodSubmitSuccess] = useState('');
   const dispatch = useDispatch();
 
   const formatDate = (dateStr) =>
@@ -61,25 +63,31 @@ const StudentViewSchedules = () => {
   });
 
   const handleMoodSubmit = async () => {
+    if (!mood.trim()) return;
+    setMoodSubmitting(true);
     try {
-      console.log('Submitted mood:', mood);
-      const res = await axios.post('/api/mood/submit', {
-        email: currentUser.email,  // current user's email
-        mood: mood
+      const res = await axios.post('/api/moods/submit', {
+        email: currentUser.email,
+        mood: mood.trim(),
       });
       console.log('Mood submitted successfully:', res.data);
+      setMoodSubmitSuccess('Mood submitted successfully!');
       setMood('');
       setShowModal(false);
     } catch (error) {
       console.error('Error submitting mood:', error.response?.data || error.message);
+      setMoodSubmitSuccess('Failed to submit mood!');
+    } finally {
+      setMoodSubmitting(false);
+      setTimeout(() => setMoodSubmitSuccess(''), 3000); // Clear message after 3s
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 relative">
-      <main className="flex-grow max-w-6xl mx-auto p-6">
+    <div className="flex flex-col min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}>
+      <main className="flex-grow max-w-6xl mx-auto p-6 bg-white bg-opacity-70 rounded-lg shadow-md mt-4 mb-4 " style={{ backgroundImage: 'url("https://img.freepik.com/premium-vector/simple-curve-background-business-with-space-text_336924-5376.jpg?w=360")' }}>
         <div className="flex flex-col items-center mb-10">
-          <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">
+          <h2 className="text-4xl font-bold text-center text-blue-700 mb-4">
             Daily Schedule
           </h2>
           <button
@@ -100,7 +108,7 @@ const StudentViewSchedules = () => {
               <div
                 key={schedule._id}
                 className="bg-white flex flex-col md:flex-row items-center p-6 border border-gray-300 rounded-xl shadow-sm hover:shadow-md transition duration-300 w-[600px] mx-auto"
-              >
+                style={{ backgroundImage: 'url("https://st.depositphotos.com/4413287/60678/i/450/depositphotos_606787534-stock-photo-abstract-simple-background-copy-space.jpg")' }}>
                 <AcademicCapIcon className="w-12 h-12 text-blue-700 mb-4 md:mb-0 md:mr-6" />
                 <div className="flex-grow">
                   <h3 className="text-2xl font-semibold text-blue-700 mb-2">

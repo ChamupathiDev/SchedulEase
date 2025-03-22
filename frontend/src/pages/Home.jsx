@@ -8,8 +8,8 @@ export default function Home() {
 
       {/* Hero Section */}
       <header className="bg-gray-800 text-white py-20 text-center">
-        <h1 className="text-4xl font-bold">Empower Your Learning & Time Management</h1>
-        <p className="mt-4 text-lg">A smart platform to manage courses and schedule your study time efficiently.</p>
+        <h1 className="text-4xl font-bold">Smart Schedule Management & Mood-Based Adjustments</h1>
+        <p className="mt-4 text-lg">A dynamic platform that optimizes your study schedule and adjusts it based on your mood for a balanced academic experience.</p>
         <button className="mt-6 px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-200 cursor-pointer">
           Get Started
         </button>
@@ -19,20 +19,20 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-16 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-          {/* Learning Management Feature */}
+          {/* Schedule Management Feature */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">📚 Learning Management</h2>
+            <h2 className="text-2xl font-bold mb-4">⏳ Schedule Management</h2>
             <p className="text-gray-600">
-              Organize courses, track progress, and engage with interactive content. Stay ahead in your studies with ease.
+              Effortlessly plan, track, and optimize your study sessions. Stay on top of assignments, exams, and deadlines with a customizable study schedule.
             </p>
             
           </div>
 
-          {/* Time Scheduling Feature */}
+          {/* Mood-Based Schedule Adjustment Feature */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">⏳ Smart Time Scheduling</h2>
+            <h2 className="text-2xl font-bold mb-4">🌙 Mood-Based Schedule Adjustment</h2>
             <p className="text-gray-600">
-              Plan study sessions, set reminders, and adjust breaks dynamically with AI-driven insights.
+              Leverage AI to automatically adjust your study schedule based on your mood, energy levels, and focus to maximize productivity and well-being.
             </p>
            
           </div>
@@ -44,35 +44,32 @@ export default function Home() {
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl font-semibold text-gray-800">About Our Students</h2>
           <p className="mt-4 text-lg text-gray-600">
-            Our platform is designed to empower students in their academic journey. With powerful tools for learning management and
-            intelligent scheduling, students can easily manage their courses, stay organized, and improve productivity.
+            Our platform helps students manage their study time efficiently and adapt their schedule based on their mood, ensuring a healthy study-life balance.
           </p>
 
           {/* Student Features */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {/* Student Profile 1 */}
+            {/* Personalized Study Schedules */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold text-blue-600">Student Profiles</h3>
+              <h3 className="text-xl font-semibold text-blue-600">Personalized Study Schedules</h3>
               <p className="mt-4 text-gray-600">
-                Create personalized student profiles with your courses, progress, and achievements. Keep track of your academic
-                milestones and stay motivated.
+                Customize your study schedule according to your individual goals, preferences, and availability. Optimize time management for greater success.
               </p>
             </div>
 
-            {/* Student Feature 2 */}
+            {/* Mood-based Adjustment */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold text-green-600">Track Progress</h3>
+              <h3 className="text-xl font-semibold text-green-600">Automated Mood-based Adjustments</h3>
               <p className="mt-4 text-gray-600">
-                Monitor your academic progress through visual dashboards and reports. Get insights into your performance and stay
-                on track for success.
+                Let the platform assess your mood and automatically adjust your study plan for maximum focus and productivity based on your current state.
               </p>
             </div>
 
-            {/* Student Feature 3 */}
+            {/* Efficient Task Management */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold text-red-600">Collaborative Learning</h3>
+              <h3 className="text-xl font-semibold text-red-600">Efficient Task Management</h3>
               <p className="mt-4 text-gray-600">
-                Collaborate with peers, engage in group discussions, and share resources. Learning is better when done together!
+                Manage tasks effectively by setting reminders, tracking deadlines, and adjusting study durations based on real-time performance and mood.
               </p>
             </div>
           </div>
@@ -84,35 +81,32 @@ export default function Home() {
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl font-semibold text-gray-800">About Our Lecturers</h2>
           <p className="mt-4 text-lg text-gray-600">
-            Our platform is equally beneficial for lecturers, enabling them to manage courses, track student progress, and interact with their students seamlessly.
+            Lecturers can monitor students' progress in real-time, offering them personalized insights and suggestions based on mood-driven schedule adjustments.
           </p>
 
           {/* Lecturer Features */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {/* Lecturer Profile Management */}
+            {/* Performance Tracking */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold text-blue-600">Course & Profile Management</h3>
+              <h3 className="text-xl font-semibold text-blue-600">Performance Tracking</h3>
               <p className="mt-4 text-gray-600">
-                Create and manage courses, upload materials, and track student engagement. Keep track of your lecture schedules and
-                the progress of your students.
+                Track student engagement and productivity levels through integrated analytics that account for both academic progress and mood-driven adjustments.
               </p>
             </div>
 
-            {/* Lecturer Student Interaction */}
+            {/* Adaptive Feedback */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold text-green-600">Student Interaction</h3>
+              <h3 className="text-xl font-semibold text-green-600">Adaptive Feedback</h3>
               <p className="mt-4 text-gray-600">
-                Engage with students through discussion boards, quizzes, and feedback. Build a strong relationship with your students
-                and enhance learning outcomes.
+                Provide feedback based on student mood and engagement levels to help them stay motivated and improve learning outcomes.
               </p>
             </div>
 
-            {/* Lecturer Performance Tracking */}
+            {/* Interaction Insights */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold text-red-600">Performance Analytics</h3>
+              <h3 className="text-xl font-semibold text-red-600">Student Interaction Insights</h3>
               <p className="mt-4 text-gray-600">
-                Monitor student performance, track their progress, and identify areas for improvement. Leverage data-driven insights to
-                enhance teaching strategies.
+                Understand how mood affects learning and tailor interactions to ensure each student receives personalized attention when they need it most.
               </p>
             </div>
           </div>

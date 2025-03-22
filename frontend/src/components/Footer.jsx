@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Company Info */}
             <div>
-              <h2 className="text-xl font-semibold text-white">EduTime</h2>
+              <h2 className="text-xl font-semibold text-white">SchedulEase</h2>
               <p className="mt-2 text-sm">
                 A smart learning management and scheduling platform for students.
               </p>

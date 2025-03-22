@@ -29,8 +29,8 @@ export default function Header() {
             <li></li>
           )}
           </Link>
-          <Link to="/about">
-            <li>About</li>
+          <Link to="/contact">
+            <li>Contact us</li>
           </Link>
           <Link to="/profile">
             {currentUser ? (

@@ -1,11 +1,10 @@
+// backend/routes/MoodRoutes.js
+import { Router } from "express";
+import { verifyToken } from "../utils/verifyUser.js";
+import { analyzeMood } from "../controllers/mood.controller.js";
 
-import express from 'express';
-import { submitMood } from '../controllers/mood.controller.js';
-import { verifyToken } from '../utils/verifyUser.js';
+const router = Router();
 
-
-const router = express.Router();
-
-router.post('/submit', verifyToken, submitMood);
+router.post("/analyze", verifyToken, analyzeMood);
 
 export default router;

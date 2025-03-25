@@ -18,6 +18,7 @@ import ModuleHome from "./pages/ModuleHome";
 import ModuleForm from "./pages/ModuleForm";
 import ModuleListPage from "./pages/ModuleListPage";
 import EditModules from "./pages/EditModules";
+import MoodView from "./pages/MoodView";
 
 
 export default function App() {
@@ -40,6 +41,8 @@ export default function App() {
         <Route path="/add-module" element={<ModuleForm />} />
         <Route path="/modules" element={<ModuleListPage />} />
         <Route path="/edit-module/:id" element={<EditModules />} />
+        <Route path="/input-mood" element={<MoodView />} />
+
         <Route element={<PrivateRoute />}>
           <Route path="/schedule" element={<StudentViewSchedules />} />
         </Route>

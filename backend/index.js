@@ -7,6 +7,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import scheduleRoutes from './routes/ScheduleRouters.js'
 import moodRoutes from './routes/mood.route.js'
+import http from 'http';
+import { initSocket } from './utils/socket.js';
 
 
 
@@ -14,6 +16,7 @@ dotenv.config();
 
 
 const app = express();
+const server = http.createServer(app);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -47,7 +50,10 @@ app.use((err, req, res, next) => {
 
   app.listen(3000, () => {
     console.log('Server Listening on port 3000!');
+    // Initialize WebSocket after server is up
+    initSocket(server);
 });
+
 
 
 

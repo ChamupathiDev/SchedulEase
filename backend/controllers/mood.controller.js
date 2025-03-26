@@ -8,7 +8,7 @@ const sentiment = new Sentiment();
 
 export const analyzeMood = async (req, res) => {
   try {
-    const { moodText, userSuggestion, confirmUpdate } = req.body;
+    const { moodText, confirmUpdate } = req.body;
     const email = req.user.email; // assuming verifyToken middleware sets req.user
 
     if (!moodText) {
@@ -20,7 +20,7 @@ export const analyzeMood = async (req, res) => {
     const score = result.score;
 
     // Determine suggestion: if user provided one, use it; otherwise generate based on score
-    let suggestion = userSuggestion;
+    let suggestion = "";
     if (!suggestion) {
       if (score < 0) {
         suggestion =

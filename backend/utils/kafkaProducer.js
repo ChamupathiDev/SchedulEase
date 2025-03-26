@@ -13,3 +13,4 @@ producer.connect().catch(err => {
 });
 
 export default producer;
+

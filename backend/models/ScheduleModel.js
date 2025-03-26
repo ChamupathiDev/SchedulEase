@@ -11,7 +11,7 @@ const scheduleSchema = new Schema({
     moduleName: {
         type: String, 
         required: [true, "Module Name is required."], 
-        trim: true,
+        trim: true, 
         minlength: [3, "Module Name must be at least 3 characters long."],
         maxlength: [100, "Module Name cannot exceed 100 characters."]
     },

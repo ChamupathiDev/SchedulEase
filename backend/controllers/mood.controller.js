@@ -37,12 +37,14 @@ export const analyzeMood = async (req, res) => {
     // Define today's time boundaries.
     const todayStart = new Date(new Date().setHours(0, 0, 0, 0));
     const todayEnd = new Date(new Date().setHours(23, 59, 59, 999));
+    const now = new Date();
 
-    // Get today's flex schedules for the current user.
+    // Get today's flex schedules for the current user that haven't started yet.
     const flexSchedules = await Schedule.find({
       email,
       scheduleType: 'flex',
-      scheduleDate: { $gte: todayStart, $lte: todayEnd }
+      scheduleDate: { $gte: todayStart, $lte: todayEnd },
+      startTime: { $gte: now }
     });
 
     // Build an array of proposed changes.

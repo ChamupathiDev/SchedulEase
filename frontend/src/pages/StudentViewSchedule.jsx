@@ -57,6 +57,11 @@ const StudentViewSchedules = () => {
     return scheduleDate === todayISO;
   });
 
+  // Define a threshold (in milliseconds) for considering an update "recent"
+  // For example, here we use 5 minutes.
+  const highlightThreshold = 5 * 60 * 1000; // 5 minutes in milliseconds
+  const now = new Date();
+
   return (
     <div
       className="flex flex-col min-h-screen bg-cover bg-center"
@@ -108,8 +113,13 @@ const StudentViewSchedules = () => {
               </thead>
               <tbody>
                 {todaysSchedules.map((schedule) => {
-                  // Apply green highlight if the schedule was updated by mood.
-                  const rowClass = schedule.updatedByMood ? "bg-green-100" : "hover:bg-gray-100";
+                  // Check if updatedByMood is true and updatedAt is within the highlight threshold.
+                  const isRecentlyUpdated =
+                    schedule.updatedByMood &&
+                    schedule.updatedAt &&
+                    now - new Date(schedule.updatedAt) < highlightThreshold;
+                  // Apply green highlight and bold font if recently updated.
+                  const rowClass = isRecentlyUpdated ? "bg-green-300 font-bold" : "hover:bg-gray-100";
                   return (
                     <tr key={schedule._id} className={rowClass}>
                       <td className="py-4 px-6 border border-gray-400 text-gray-700">

@@ -8,7 +8,7 @@ const sentiment = new Sentiment();
 
 export const analyzeMood = async (req, res) => {
   try {
-    const { moodText, userSuggestion } = req.body;
+    const { moodText, userSuggestion, confirmUpdate } = req.body;
     const email = req.user.email; // assuming verifyToken middleware sets req.user
 
     if (!moodText) {
@@ -31,30 +31,58 @@ export const analyzeMood = async (req, res) => {
       }
     }
 
-    // Adjust today’s flex schedules for the current user
+    // Calculate adjustment minutes based on sentiment score.
+    const adjustmentMinutes = score < 0 ? 15 : (score > 0 ? -15 : 0);
+
+    // Define today's time boundaries.
     const todayStart = new Date(new Date().setHours(0, 0, 0, 0));
     const todayEnd = new Date(new Date().setHours(23, 59, 59, 999));
 
+    // Get today's flex schedules for the current user.
     const flexSchedules = await Schedule.find({
       email,
       scheduleType: 'flex',
       scheduleDate: { $gte: todayStart, $lte: todayEnd }
     });
 
-    // Define adjustment: if mood is negative, add 15 minutes (postpone start and extend end),
-    // if positive, subtract 15 minutes (start earlier and finish earlier).
-    const adjustmentMinutes = score < 0 ? 15 : (score > 0 ? -15 : 0);
-    let updatedSchedules = [];
-
-    for (const schedule of flexSchedules) {
+    // Build an array of proposed changes.
+    const proposals = flexSchedules.map(schedule => {
       let newStart = new Date(schedule.startTime);
       let newEnd = new Date(schedule.endTime);
-
       if (adjustmentMinutes !== 0) {
         newStart = new Date(newStart.getTime() + adjustmentMinutes * 60000);
         newEnd = new Date(newEnd.getTime() + adjustmentMinutes * 60000);
       }
+      return {
+        _id: schedule._id,
+        moduleId: schedule.moduleId,
+        moduleName: schedule.moduleName,
+        scheduleType: schedule.scheduleType,
+        oldStartTime: schedule.startTime,
+        oldEndTime: schedule.endTime,
+        proposedStartTime: newStart,
+        proposedEndTime: newEnd
+      };
+    });
 
+    // If the user has NOT confirmed, just return the proposal.
+    if (!confirmUpdate) {
+      return res.status(200).json({
+        message: "Here is your schedule adjustment suggestion.",
+        suggestion,
+        proposedSchedules: proposals
+      });
+    }
+
+    // If the user confirms, update the schedules in the database.
+    let updatedSchedules = [];
+    for (const schedule of flexSchedules) {
+      let newStart = new Date(schedule.startTime);
+      let newEnd = new Date(schedule.endTime);
+      if (adjustmentMinutes !== 0) {
+        newStart = new Date(newStart.getTime() + adjustmentMinutes * 60000);
+        newEnd = new Date(newEnd.getTime() + adjustmentMinutes * 60000);
+      }
       const updated = await Schedule.findByIdAndUpdate(
         schedule._id,
         { startTime: newStart, endTime: newEnd },
@@ -65,7 +93,7 @@ export const analyzeMood = async (req, res) => {
 
     // Send notification via WebSocket (using user’s email as the room)
     io.to(email).emit("scheduleUpdated", {
-      message: "Your schedule has been adjusted based on your mood.",
+      message: "Your schedule has been updated based on your mood.",
       suggestion,
       updatedSchedules
     });

@@ -8,3 +8,4 @@ const router = Router();
 router.post("/analyze", verifyToken, analyzeMood);
 
 export default router;
+

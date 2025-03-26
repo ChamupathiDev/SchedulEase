@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
     console.log(err);
 });
 
-  app.listen(3000, () => {
+  server.listen(3000, () => {
     console.log('Server Listening on port 3000!');
     // Initialize WebSocket after server is up
     initSocket(server);

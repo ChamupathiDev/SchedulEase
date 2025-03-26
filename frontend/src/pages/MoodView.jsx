@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
+import Footer from '../components/Footer';
 
 const socket = io("http://localhost:3000"); // adjust if needed
 
@@ -50,7 +51,8 @@ const MoodView = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+    <div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100" style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}>
       <div className="bg-white shadow-md rounded p-6 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center">Input Your Mood</h2>
         <form onSubmit={handleSubmit}>
@@ -98,6 +100,8 @@ const MoodView = () => {
           </div>
         )}
       </div>
+    </div>
+        <Footer />
     </div>
   );
 };

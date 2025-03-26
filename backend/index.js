@@ -11,7 +11,6 @@ import http from 'http';
 import { initSocket } from './utils/socket.js';
 
 
-
 dotenv.config();
 
 
@@ -27,7 +26,6 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use("/api/schedules", scheduleRoutes);
 app.use('/api/moods', moodRoutes);
-
 
 
 app.use((err, req, res, next) => {

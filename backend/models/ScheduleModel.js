@@ -53,6 +53,16 @@ const scheduleSchema = new Schema({
             },
             message: "End Time must be after Start Time."
         }
+    },
+
+     // New field to flag mood-based updates
+     updatedByMood: { 
+        type: Boolean, 
+        default: false 
+    },
+    // Optionally, track the time of the update
+    updatedAt: {
+        type: Date
     }
 });
 

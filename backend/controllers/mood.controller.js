@@ -83,9 +83,15 @@ export const analyzeMood = async (req, res) => {
         newStart = new Date(newStart.getTime() + adjustmentMinutes * 60000);
         newEnd = new Date(newEnd.getTime() + adjustmentMinutes * 60000);
       }
+      // Update the schedule and add a flag to indicate it was updated by mood.
       const updated = await Schedule.findByIdAndUpdate(
         schedule._id,
-        { startTime: newStart, endTime: newEnd },
+        { 
+          startTime: newStart, 
+          endTime: newEnd, 
+          updatedByMood: true, 
+          updatedAt: new Date() 
+        },
         { new: true }
       );
       updatedSchedules.push(updated);

@@ -47,8 +47,13 @@ const MoodView = () => {
       });
       // Save the suggestion and proposed schedule changes
       setSuggestion(res.data.suggestion);
-      setProposedSchedules(res.data.proposedSchedules);
-      setShowConfirm(true); // Show confirmation UI
+      if (res.data.proposedSchedules && res.data.proposedSchedules.length > 0) {
+        setProposedSchedules(res.data.proposedSchedules);
+        setShowConfirm(true); // Only show confirmation if there are proposed changes
+      } else {
+        setNotification("No flex schedules available for update at this time.");
+        setShowConfirm(false);
+      }
     } catch (err) {
       console.error("Error submitting mood:", err.response?.data || err.message);
       setNotification("Error updating schedule based on mood.");

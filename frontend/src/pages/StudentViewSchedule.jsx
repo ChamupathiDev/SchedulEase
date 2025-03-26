@@ -1,3 +1,4 @@
+// frontend/src/pages/StudentViewSchedule.jsx
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,7 +62,7 @@ const StudentViewSchedules = () => {
       className="flex flex-col min-h-screen bg-cover bg-center"
       style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}
     >
-      <main className="flex-grow max-w-6xl mx-auto p-6 bg-white bg-opacity-70 rounded-lg shadow-md mt-4 mb-4">
+      <main className="flex-grow max-w-full mx-auto p-6 bg-white bg-opacity-70 rounded-lg shadow-md mt-4 mb-4">
         {/* Daily Schedule Card */}
         <div className="w-full flex justify-center mb-6">
           <div className="px-6 py-3 bg-blue-600 text-white text-2xl font-bold rounded-md shadow-md">
@@ -78,7 +79,7 @@ const StudentViewSchedules = () => {
           </button>
         </div>
         {/* Table Container */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full">
           {loading ? (
             <p className="text-center text-gray-500">Loading schedules...</p>
           ) : error ? (
@@ -106,25 +107,29 @@ const StudentViewSchedules = () => {
                 </tr>
               </thead>
               <tbody>
-                {todaysSchedules.map((schedule) => (
-                  <tr key={schedule._id} className="hover:bg-gray-100">
-                    <td className="py-4 px-6 border border-gray-400 text-gray-700">
-                      {formatTime(schedule.startTime)}
-                    </td>
-                    <td className="py-4 px-6 border border-gray-400 text-gray-700">
-                      {formatTime(schedule.endTime)}
-                    </td>
-                    <td className="py-4 px-6 border border-gray-400 text-gray-700">
-                      {schedule.moduleId}
-                    </td>
-                    <td className="py-4 px-6 border border-gray-400 text-gray-700">
-                      {schedule.moduleName}
-                    </td>
-                    <td className="py-4 px-6 border border-gray-400 text-gray-700">
-                      {schedule.scheduleType}
-                    </td>
-                  </tr>
-                ))}
+                {todaysSchedules.map((schedule) => {
+                  // Apply green highlight if the schedule was updated by mood.
+                  const rowClass = schedule.updatedByMood ? "bg-green-100" : "hover:bg-gray-100";
+                  return (
+                    <tr key={schedule._id} className={rowClass}>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {formatTime(schedule.startTime)}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {formatTime(schedule.endTime)}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {schedule.moduleId}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {schedule.moduleName}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {schedule.scheduleType}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           ) : (

@@ -69,9 +69,9 @@ const MoodView = () => {
           Authorization: `Bearer ${currentUser.token}`,
         },
       });
-      setNotification("Your schedule has been updated based on your mood.");
-      setSuggestion(res.data.suggestion);
+      setSuggestion("");
       setShowConfirm(false);
+      setNotification("Your schedule has been updated based on your mood.");
       // Optionally, redirect or refresh schedule page
     } catch (err) {
       console.error("Error confirming update:", err.response?.data || err.message);
@@ -122,9 +122,15 @@ const MoodView = () => {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
             >
-              Analyze Mood
+              Submit Mood
             </button>
           </form>
+          {suggestion && (
+            <div className="mt-4 p-4 bg-green-100 rounded">
+              <p className="text-green-700 font-semibold">System Suggestion:</p>
+              <p className="text-green-700">{suggestion}</p>
+            </div>
+          )}
           {showConfirm && (
             <div className="mt-4 p-4 bg-yellow-100 rounded">
               <p className="text-yellow-800">
@@ -153,12 +159,7 @@ const MoodView = () => {
               </div>
             </div>
           )}
-          {suggestion && !showConfirm && (
-            <div className="mt-4 p-4 bg-green-100 rounded">
-              <p className="text-green-700 font-semibold">System Suggestion:</p>
-              <p className="text-green-700">{suggestion}</p>
-            </div>
-          )}
+         
           {notification && (
             <div className="mt-4 p-4 bg-blue-100 rounded">
               <p className="text-blue-700">{notification}</p>

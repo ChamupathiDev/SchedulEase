@@ -50,11 +50,10 @@ const StudentViewSchedules = () => {
   const todayDate = new Date();
   const formattedToday = todayDate.toLocaleDateString();
 
-  // Filter schedules for today.
-  const todayISO = todayDate.toISOString().split('T')[0];
+  // Filter schedules for today using local date comparison.
   const todaysSchedules = schedules.filter((schedule) => {
-    const scheduleDate = new Date(schedule.scheduleDate).toISOString().split('T')[0];
-    return scheduleDate === todayISO;
+    const scheduleLocalDate = new Date(schedule.scheduleDate).toLocaleDateString();
+    return scheduleLocalDate === formattedToday;
   });
 
   // Define a threshold (in milliseconds) for considering an update "recent"
@@ -153,4 +152,3 @@ const StudentViewSchedules = () => {
 };
 
 export default StudentViewSchedules;
-

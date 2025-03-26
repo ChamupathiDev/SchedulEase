@@ -1,2 +1,2 @@
 # SchedulEase
-Conflict free time-table management system
+Conflict free time-table management system.

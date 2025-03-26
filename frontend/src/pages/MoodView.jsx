@@ -65,7 +65,6 @@ const MoodView = () => {
     try {
       const payload = {
         moodText,
-        userSuggestion: customSuggestion ? customSuggestion : undefined,
         confirmUpdate: true // Confirm the update
       };
 
@@ -111,18 +110,7 @@ const MoodView = () => {
                 required
               ></textarea>
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2">
-                (Optional) Enter your own suggestion for schedule adjustment:
-              </label>
-              <input
-                type="text"
-                value={customSuggestion}
-                onChange={(e) => setCustomSuggestion(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
-                placeholder="Your suggestion..."
-              />
-            </div>
+           
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"

@@ -19,6 +19,7 @@ function ScheduleDetails() {
     const navigate = useNavigate();
     const ComponentsRef = useRef(); // Corrected ref variable name
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -60,6 +61,7 @@ function ScheduleDetails() {
         navigate("/addschedule", { state: { scheduleIds } });
     };
 
+    //report generation part
     const handlePrint = useReactToPrint({
         contentRef: ComponentsRef, // Use contentRef instead of content callback
         documentTitle: "Schedule Reports",

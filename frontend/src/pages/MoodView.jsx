@@ -173,3 +173,4 @@ const MoodView = () => {
 };
 
 export default MoodView;
+

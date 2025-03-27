@@ -9,6 +9,8 @@ function UpdateSchedule() {
         email: "",
         moduleName: "",
         moduleId: "",
+        Lecturer:"",
+        DeliveryMode:"",
         scheduleDate: "",
         scheduleType: "",
         startTime: "",
@@ -20,6 +22,8 @@ function UpdateSchedule() {
         email: "",
         moduleName: "",
         moduleId: "",
+        Lecturer: "",
+        DeliveryMode: "",
         scheduleDate: "",
         scheduleType: "",
         startTime: "",
@@ -52,6 +56,8 @@ function UpdateSchedule() {
                     email: data.email,
                     moduleName: data.moduleName,
                     moduleId: data.moduleId,
+                    Lecturer: data.Lecturer,
+                    DeliveryMode: data.DeliveryMode,
                     scheduleDate,
                     scheduleType: data.scheduleType,
                     startTime,
@@ -74,6 +80,8 @@ function UpdateSchedule() {
         }
         if (!inputs.moduleName) newErrors.moduleName = "Module Name is required";
         if (!inputs.moduleId) newErrors.moduleId = "Module ID is required";
+        if (!inputs.Lecturer) newErrors.Lecturer = "Lecturer name is required";
+        if (!inputs.DeliveryMode) newErrors.DeliveryMode = "Delivery Mode is required";
         if (!inputs.scheduleType) newErrors.scheduleType = "Schedule Type is required";
         if (!inputs.scheduleDate) newErrors.scheduleDate = "Schedule Date is required";
 
@@ -113,6 +121,8 @@ function UpdateSchedule() {
                 email: inputs.email,
                 moduleName: inputs.moduleName,
                 moduleId: inputs.moduleId,
+                Lecturer: inputs.Lecturer,
+                DeliveryMode: inputs.DeliveryMode,
                 scheduleDate: scheduleDateObj.toISOString(),
                 scheduleType: inputs.scheduleType,
                 startTime: startDateTime.toISOString(),
@@ -202,6 +212,30 @@ function UpdateSchedule() {
                             value={inputs.moduleId}
                             onChange={handleChange}
                             className={`w-full p-2 mt-1 border ${errors.moduleId ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring focus:ring-blue-200 focus:outline-none`}
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Lecturer Name</label>
+                        <input
+                            type="text"
+                            name="Lecturer"
+                            value={inputs.Lecturer}
+                            onChange={handleChange}
+                            className={`w-full p-2 mt-1 border ${errors.Lecturer ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring focus:ring-blue-200 focus:outline-none`}
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Delivery Mode</label>
+                        <input
+                            type="text"
+                            name="DeliveryMode"
+                            value={inputs.DeliveryMode}
+                            onChange={handleChange}
+                            className={`w-full p-2 mt-1 border ${errors.DeliveryMode ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring focus:ring-blue-200 focus:outline-none`}
                             required
                         />
                     </div>

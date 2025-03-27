@@ -20,7 +20,7 @@ const getAllSchedules = async (req, res) => {
 const addSchedules = async (req, res) => {
     const { scheduleId, moduleName, email, moduleId, scheduleDate, scheduleType, startTime, endTime, DeliveryMode, Lecturer } = req.body;
 
-    if (!scheduleId || !moduleName || !email || !moduleId || !scheduleDate || !scheduleType || !startTime || !endTime || DeliveryMode || Lecturer) {
+    if (!scheduleId || !moduleName || !email || !moduleId || !scheduleDate || !scheduleType || !startTime || !endTime || !DeliveryMode || !Lecturer) {
         return res.status(400).json({ message: "All fields are required" });
     }
 

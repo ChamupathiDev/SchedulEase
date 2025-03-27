@@ -102,6 +102,8 @@ const StudentViewSchedules = () => {
                   <th colSpan={2} className="py-2 px-4 border border-gray-400">Time</th>
                   <th rowSpan={2} className="py-3 px-4 border border-gray-400">Module ID</th>
                   <th rowSpan={2} className="py-3 px-4 border border-gray-400">Module Name</th>
+                  <th rowSpan={2} className="py-3 px-4 border border-gray-400">Lecturer Name</th>
+                  <th rowSpan={2} className="py-3 px-4 border border-gray-400">Delivery Mode</th>
                   <th rowSpan={2} className="py-3 px-4 border border-gray-400">Schedule Type</th>
                 </tr>
                 {/* Third header row: Sub-columns for Time */}
@@ -132,6 +134,12 @@ const StudentViewSchedules = () => {
                       </td>
                       <td className="py-4 px-6 border border-gray-400 text-gray-700">
                         {schedule.moduleName}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {schedule.Lecturer}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {schedule.DeliveryMode}
                       </td>
                       <td className="py-4 px-6 border border-gray-400 text-gray-700">
                         {schedule.scheduleType}

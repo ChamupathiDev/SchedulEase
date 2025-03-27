@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
+import bgImage from '../assets/images/gray1.jpg';
+
 import {
   signInSuccess,
   viewScheduleFailure,
@@ -63,16 +65,10 @@ const StudentViewSchedules = () => {
 
   return (
     <div
-      className="flex flex-col min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}
+      className="flex flex-col min-h-screen bg-cover bg-center "
+      style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <main className="flex-grow max-w-full mx-auto p-6 bg-white bg-opacity-70 rounded-lg shadow-md mt-4 mb-4">
-        {/* Daily Schedule Card */}
-        <div className="w-full flex justify-center mb-6">
-          <div className="px-6 py-3 bg-blue-600 text-white text-2xl font-bold rounded-md shadow-md">
-            Daily Schedule
-          </div>
-        </div>
+      <main className="flex-grow max-w-full mx-auto p-2  bg-opacity-70 rounded-lg shadow-md mt-2 mb-2" >
         {/* Input Mood Button Positioned Above the Table */}
         <div className="flex justify-end mb-4">
           <button
@@ -89,12 +85,18 @@ const StudentViewSchedules = () => {
           ) : error ? (
             <p className="text-center text-red-500">{error}</p>
           ) : todaysSchedules.length > 0 ? (
-            <table className="min-w-full border border-gray-400 border-collapse">
+            <div className="overflow-hidden rounded-lg border border-gray-400">
+            <table className="min-w-full border border-gray-400 border-collapse bg-opacity-70 bg-white">
               <thead>
+              <tr className="bg-blue-600 text-white">
+                  <th colSpan={7} className="py-3 px-9 border border-gray-400 text-center">
+                    Daily Schedule
+                  </th>
+                </tr>
                 {/* Date header spanning all columns */}
-                <tr className="bg-blue-600 text-white">
-                  <th colSpan={5} className="py-3 px-4 border border-gray-400 text-center">
-                    {formattedToday}
+                <tr className="bg-blue-200 font-bold">
+                  <th colSpan={7} className="py-3 px-9 border border-gray-400 text-center">
+                    Date: {formattedToday}
                   </th>
                 </tr>
                 {/* Second header row: Time merged cell and other headers */}
@@ -149,6 +151,7 @@ const StudentViewSchedules = () => {
                 })}
               </tbody>
             </table>
+            </div>
           ) : (
             <p className="text-gray-500 text-center mt-6">No schedules for today.</p>
           )}

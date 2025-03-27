@@ -7,7 +7,6 @@ import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import StudentViewSchedules from "./pages/StudentViewSchedule";
-import Course from "./pages/Course";
 import ScheduleDetails from "./pages/ScheduleDetails/ScheduleDetails";
 import AddSchedule from "./pages/AddSchedule/AddSchedule";
 import UpdateSchedule from "./pages/UpdateSchedule/UpdateSchedule";
@@ -37,9 +36,6 @@ export default function App() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/schedule" element={<StudentViewSchedules />} />
-        </Route>
-        <Route element={<PrivateRoute />}>
-          <Route path="/course" element={<Course />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />

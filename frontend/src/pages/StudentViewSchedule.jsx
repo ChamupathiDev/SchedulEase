@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
-import bgImage from '../assets/images/gray1.jpg';
+
 
 import {
   signInSuccess,
@@ -66,7 +66,7 @@ const StudentViewSchedules = () => {
   return (
     <div
       className="flex flex-col min-h-screen bg-cover bg-center "
-      style={{ backgroundImage: `url(${bgImage})` }}
+      
     >
       <main className="flex-grow max-w-full mx-auto p-2  bg-opacity-70 rounded-lg shadow-md mt-2 mb-2" >
         {/* Input Mood Button Positioned Above the Table */}

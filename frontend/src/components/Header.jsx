@@ -22,13 +22,7 @@ export default function Header() {
             <li></li>
           )}
           </Link>
-          <Link to="/course">
-            {currentUser ? (
-              <li>MyCourse</li>
-            ):(
-            <li></li>
-          )}
-          </Link>
+          
           <Link to="/contact">
             <li>Contact us</li>
           </Link>

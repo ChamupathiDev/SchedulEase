@@ -1,16 +1,50 @@
 import { useSelector } from "react-redux";
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signOut } from "../redux/user/userSlice.js";
+import { 
+  updateUserStart, 
+  updateUserSuccess, 
+  updateUserFailure, 
+  deleteUserStart, 
+  deleteUserSuccess, 
+  deleteUserFailure, 
+  signOut 
+} from "../redux/user/userSlice.js";
 import axios from "axios";
 import Footer from "../components/Footer.jsx";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Profile() {
-  const [formData, setFormData] = useState({});
   const { currentUser, loading, error } = useSelector((state) => state.user);
-  const fileRef = useRef(null);
   const dispatch = useDispatch();
+  const fileRef = useRef(null);
   const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  // State for password visibility toggle
+  const [showPassword, setShowPassword] = useState(false);
+
+  // For displaying masked password.
+  // NOTE: You can't recover the actual password because it's stored hashed.
+  // So we use a fixed masked value to indicate a password is set.
+  const MASKED_PASSWORD = "********";
+
+  // Initialize formData from currentUser when available.
+  // Prefill password with the masked string.
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: MASKED_PASSWORD
+  });
+
+  useEffect(() => {
+    if (currentUser) {
+      setFormData({
+        username: currentUser.username || "",
+        email: currentUser.email || "",
+        password: MASKED_PASSWORD // display dots for existing password
+      });
+    }
+  }, [currentUser]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -20,7 +54,13 @@ export default function Profile() {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await axios.post(`/api/user/update/${currentUser._id}`, formData);
+      // Create a payload object to send to the backend.
+      // If the password field is unchanged (masked), remove it so it won't update.
+      const payload = { ...formData };
+      if (payload.password === MASKED_PASSWORD) {
+        delete payload.password;
+      }
+      const res = await axios.post(`/api/user/update/${currentUser._id}`, payload);
       dispatch(updateUserSuccess(res.data));
       setUpdateSuccess(true);
     } catch (err) {
@@ -45,7 +85,7 @@ export default function Profile() {
   const handleDeleteAccount = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await axios.delete(`/api/user/delete/${currentUser._id}`, formData);
+      const res = await axios.delete(`/api/user/delete/${currentUser._id}`, { data: formData });
       dispatch(deleteUserSuccess(res.data));
     } catch (err) {
       console.error(
@@ -74,38 +114,48 @@ export default function Profile() {
               />
             </div>
 
-            {/* Input Fields */}
+            {/* Username Input */}
             <input
-              value={currentUser.username}  // This will make it persistent
+              value={formData.username}
               type="text"
               id="username"
               placeholder="Username"
-              className="bg-slate-100 rounded-lg p-3"
+              className="w-full bg-slate-100 rounded-lg p-3"
               onChange={handleChange}
             />
+            {/* Email Input */}
             <input
-              value={currentUser.email}  // This will make it persistent
+              value={formData.email}
               type="email"
               id="email"
               placeholder="Email"
-              className="bg-slate-100 rounded-lg p-3"
+              className="w-full bg-slate-100 rounded-lg p-3"
               onChange={handleChange}
             />
-            <input
-              value={currentUser.password}
-              type="password"
-              id="password"
-              placeholder="Password"
-              className="bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-            />
+            {/* Password Field with Icon */}
+            <div className="relative w-full">
+              <input
+                value={formData.password}
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Password"
+                className="w-full bg-slate-100 rounded-lg p-3 pr-10"
+                onChange={handleChange}
+              />
+              <div 
+                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </div>
+            </div>
 
             {/* Update Button */}
             <button
-              className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+              className="bg-slate-700 text-white w-full p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
               disabled={loading}
             >
-              {loading ? 'Loading...' : 'Update'}
+              {loading ? "Loading..." : "Update"}
             </button>
           </form>
         </div>

@@ -48,7 +48,7 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+ 
     
     <div className="min-h-screen flex flex-col justify-center items-center p-6 bg-gray-50 font-Poppins" style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl">
@@ -199,7 +199,6 @@ export default function SignUp() {
       
     </div>
   
-    <Footer/>
-    </div>
+    
   );
 }

@@ -68,7 +68,8 @@ function ScheduleDetails() {
         documentTitle: "Schedule Reports",
         onAfterPrint: () => alert("Schedule report successfully generated!"),
     });
-
+    
+    //create search function
     const handleSearch = async () => {
         try {
             const data = await fetchSchedules();

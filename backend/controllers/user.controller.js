@@ -52,6 +52,34 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
+export const uploadProfilePicture = async (req, res, next) => {
+  try {
+    if (!req.file) return next(errorHandler(400, "No file uploaded"));
+
+    // Ensure file path uses forward slashes
+    const normalizedPath = req.file.path.replace(/\\/g, '/');
+
+    if (!req.user.email) {
+      return next(errorHandler(401, "Not authenticated"));
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { email: req.user.email },
+      { $set: { profilePicture: normalizedPath } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return next(errorHandler(404, "User not found"));
+    }
+
+    const { password, ...rest } = updatedUser._doc;
+    res.status(200).json(rest);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const deleteUser = async (req, res, next) => {
   try {
     // Find user by ID from URL param

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import cors from 'cors';
+import path from 'path';
 import cookieParser from 'cookie-parser';
 import scheduleRoutes from './routes/ScheduleRouters.js'
 import moodRoutes from './routes/mood.route.js'
@@ -20,6 +21,8 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+// Serve files in the uploads folder
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 
 app.use('/api/user', userRoutes);

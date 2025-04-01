@@ -4,6 +4,14 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 
 export default function Header() {
   const {currentUser} = useSelector(state => state.user);
+
+  // Construct the full URL for the profile image.
+  const backendUrl = "http://localhost:3000";
+  const profileImageUrl = currentUser && currentUser.profilePicture && 
+    currentUser.profilePicture.startsWith("uploads/")
+      ? `${backendUrl}/${currentUser.profilePicture.replace(/\\/g, '/')}`
+      : currentUser?.profilePicture || "";
+
   return (
     <div className="bg-black text-white font-Poppins">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -28,7 +36,7 @@ export default function Header() {
           </Link>
           <Link to="/profile">
             {currentUser ? (
-              <img src={currentUser.profilePicture}  alt="profile"
+              <img src={profileImageUrl}  alt="profile"
               className="h-7 w-7 rounded-full object-cover" />
             ):(
             <li>Sign In</li>

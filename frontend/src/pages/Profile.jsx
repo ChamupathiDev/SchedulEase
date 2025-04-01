@@ -59,6 +59,27 @@ export default function Profile() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // New: File change handler for image upload
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formDataImage = new FormData();
+    formDataImage.append("profilePicture", file);
+
+    try {
+      const res = await axios.post("/api/user/upload-profile-picture", formDataImage, {
+        headers: { "Content-Type": "multipart/form-data" },
+        
+      });
+      // Update currentUser with the new profile picture
+      dispatch(updateUserSuccess(res.data));
+    } catch (err) {
+      console.error("File upload error:", err.response ? err.response.data : err.message);
+    }
+
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -105,17 +126,33 @@ export default function Profile() {
     }
   };
 
+   // Construct the full URL for the profile image.
+   const backendUrl = "http://localhost:3000";
+   const profileImageUrl = currentUser && currentUser.profilePicture && 
+     currentUser.profilePicture.startsWith("uploads/")
+       ? `${backendUrl}/${currentUser.profilePicture.replace(/\\/g, '/')}`
+       : currentUser?.profilePicture || "";
+
   return (
-    <div className="min-h-screen bg-cover bg-top bg-[url('https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')] mt-[-40px]">
-      <div className="p-3 max-w-lg mx-auto mt-10">
+    <div className="min-h-screen bg-cover bg-top font-Poppins bg-[url('https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')] mt-[-40px]">
+      <div className="p-3 max-w-2xl mx-auto mt-10">
         {/* Profile Card */}
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h1 className="text-3xl font-semibold text-center my-5">Profile</h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {/* Profile Picture (Default, no update functionality yet) */}
+            {/* Hidden file input for profile picture */}
+            <input
+              type="file"
+              ref={fileRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+
+            {/* Profile Picture (click to upload) */}
             <div className="flex justify-center mb-4">
               <img
-                src={currentUser.profilePicture}
+                src={profileImageUrl}
                 alt="profile"
                 className="h-24 w-24 cursor-pointer rounded-full object-cover"
                 onClick={() => fileRef.current && fileRef.current.click()}
@@ -123,40 +160,50 @@ export default function Profile() {
             </div>
 
             {/* Full Name */}
-            <input
-              value={formData.fullName}
-              type="text"
-              id="fullName"
-              placeholder="Full Name"
-              className="w-full bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-              required
-            />
+            <div className="flex flex-col">
+              <label htmlFor="fullName" className="mb-1 font-medium">Full Name</label>
+              <input
+                value={formData.fullName}
+                type="text"
+                id="fullName"
+                placeholder="Full Name"
+                className="w-full bg-slate-100 rounded-lg p-3"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-            {/* Username */}
-            <input
-              value={formData.studentid}
-              type="text"
-              id="studentid"
-              placeholder="Username"
-              className="w-full bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-              required
-            />
+            {/* Student ID */}
+            <div className="flex flex-col">
+              <label htmlFor="studentid" className="mb-1 font-medium">Student ID</label>
+              <input
+                value={formData.studentid}
+                type="text"
+                id="studentid"
+                placeholder="Student ID"
+                className="w-full bg-slate-100 rounded-lg p-3"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
             {/* Email */}
-            <input
-              value={formData.email}
-              type="email"
-              id="email"
-              placeholder="Email"
-              className="w-full bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-              required
-            />
+            <div className="flex flex-col">
+              <label htmlFor="email" className="mb-1 font-medium">Email</label>
+              <input
+                value={formData.email}
+                type="email"
+                id="email"
+                placeholder="Email"
+                className="w-full bg-slate-100 rounded-lg p-3"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
             {/* Password with Toggle */}
-            <div className="relative w-full">
+            <div className="flex flex-col relative">
+              <label htmlFor="password" className="mb-1 font-medium">Password</label>
               <input
                 value={formData.password}
                 type={showPassword ? "text" : "password"}
@@ -174,76 +221,94 @@ export default function Profile() {
             </div>
 
             {/* Date of Birth */}
-            <input
-              value={formData.dateOfBirth}
-              type="date"
-              id="dateOfBirth"
-              placeholder="Date of Birth"
-              className="w-full bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-              required
-            />
+            <div className="flex flex-col">
+              <label htmlFor="dateOfBirth" className="mb-1 font-medium">Date of Birth</label>
+              <input
+                value={formData.dateOfBirth}
+                type="date"
+                id="dateOfBirth"
+                placeholder="Date of Birth"
+                className="w-full bg-slate-100 rounded-lg p-3"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
             {/* Phone Number */}
-            <input
-              value={formData.phoneNumber}
-              type="tel"
-              id="phoneNumber"
-              placeholder="Phone Number"
-              className="w-full bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-              required
-            />
+            <div className="flex flex-col">
+              <label htmlFor="phoneNumber" className="mb-1 font-medium">Phone Number</label>
+              <input
+                value={formData.phoneNumber}
+                type="tel"
+                id="phoneNumber"
+                placeholder="Phone Number"
+                className="w-full bg-slate-100 rounded-lg p-3"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
             {/* Address */}
-            <input
-              value={formData.address}
-              type="text"
-              id="address"
-              placeholder="Address"
-              className="w-full bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-              required
-            />
+            <div className="flex flex-col">
+              <label htmlFor="address" className="mb-1 font-medium">Address</label>
+              <input
+                value={formData.address}
+                type="text"
+                id="address"
+                placeholder="Address"
+                className="w-full bg-slate-100 rounded-lg p-3"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
             {/* Degree Program */}
-            <input
-              value={formData.degreeProgram}
-              type="text"
-              id="degreeProgram"
-              placeholder="Degree Program"
-              className="w-full bg-slate-100 rounded-lg p-3"
-              onChange={handleChange}
-              required
-            />
+            <div className="flex flex-col">
+              <label htmlFor="degreeProgram" className="mb-1 font-medium">Degree Program</label>
+              <input
+                value={formData.degreeProgram}
+                type="text"
+                id="degreeProgram"
+                placeholder="Degree Program"
+                className="w-full bg-slate-100 rounded-lg p-3"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
             {/* Faculty Dropdown */}
-            <select
-              id="faculty"
-              value={formData.faculty}
-              onChange={handleChange}
-              className="w-full bg-slate-100 rounded-lg p-3"
-              required
-            >
-              <option value="">Select Faculty</option>
-              <option value="Faculty of Computing">Faculty of Computing</option>
-              <option value="Faculty of Engineering">Faculty of Engineering</option>
-              <option value="Faculty of Business">Faculty of Business</option>
-            </select>
+            <div className="flex flex-col">
+              <label htmlFor="faculty" className="mb-1 font-medium">Faculty</label>
+              <select
+                id="faculty"
+                value={formData.faculty}
+                onChange={handleChange}
+                className="w-full bg-slate-100 rounded-lg p-3"
+                required
+              >
+                <option value="">Select Faculty</option>
+                <option value="Faculty of Computing">Faculty of Computing</option>
+                <option value="Faculty of Engineering">Faculty of Engineering</option>
+                <option value="Faculty of Business">Faculty of Business</option>
+              </select>
+            </div>
 
             {/* Gender Dropdown */}
-            <select
-              id="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              className="w-full bg-slate-100 rounded-lg p-3"
-              required
-            >
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
+            <div className="flex flex-col">
+              <label htmlFor="gender" className="mb-1 font-medium">Gender</label>
+              <select
+                id="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className="w-full bg-slate-100 rounded-lg p-3"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
 
             {/* Update Button */}
             <button

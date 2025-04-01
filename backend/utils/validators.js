@@ -3,6 +3,12 @@ import { body, validationResult } from "express-validator";
 
 export const userValidationRules = () => {
   return [
+
+    // Validate student ID: Must start with IT, BS, or EG followed by 5 digits
+    body("studentid")
+      .matches(/^(IT|BS|EG)\d{5}$/)
+      .withMessage("Student ID must start with IT, BS, or EG followed by 5 numbers."),
+
     body("email")
       .isEmail()
       .withMessage("Invalid email format")
@@ -15,6 +21,7 @@ export const userValidationRules = () => {
       }),
 
     body("password")
+      .optional({ checkFalsy: true })
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters"),
 
@@ -50,7 +57,7 @@ export const userValidationRules = () => {
       .isMobilePhone("any")
       .withMessage("Invalid phone number")
       .custom((value) => {
-        if (!/^\+\d{1,3}\s?\d{7,15}$/.test(value)) {
+        if (!/^\+?\d{1,3}\s?\d{7,15}$/.test(value)) {
           throw new Error("Phone number must include country code (e.g., +1 1234567890).");
         }
         return true;

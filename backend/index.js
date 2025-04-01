@@ -10,6 +10,7 @@ import scheduleRoutes from './routes/ScheduleRouters.js'
 import moodRoutes from './routes/mood.route.js'
 import http from 'http';
 import { initSocket } from './utils/socket.js';
+import adminRoutes from "./routes/user.route.js";
 
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use("/api/schedules", scheduleRoutes);
 app.use('/api/moods', moodRoutes);
+app.use("/api/admin", adminRoutes);
 
 
 

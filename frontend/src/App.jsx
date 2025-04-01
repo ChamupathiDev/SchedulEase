@@ -14,6 +14,8 @@ import AdminSidebar from "./pages/AdminPanel/AdminSidebar";
 import AdminLogin from "./pages/AdminPanel/AdminLogin";
 import AdminDashboard from "./pages/AdminPanel/AdminDashboard";
 import MoodView from "./pages/MoodView";
+import AdminUsers from "./pages/UserDetails/AdminUsers";
+import AdminEditUser from "./pages/UserDetails/AdminEditUser";
 
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/userdetails" element={<AdminUsers />} />
+        <Route path="/updateuser/:id" element={<AdminEditUser />} />
         <Route path="/scheduledetails" element={<ScheduleDetails />} />
         <Route path="/addschedule" element={<AddSchedule />} />
         <Route path="/updateschedule/:id" element={<UpdateSchedule />} />

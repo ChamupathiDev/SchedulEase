@@ -33,7 +33,7 @@ export const userValidationRules = () => {
         const today = new Date();
 
         // Calculate age
-        const age = today.getFullYear() - dob.getFullYear();
+        let age = today.getFullYear() - dob.getFullYear();
         const monthDiff = today.getMonth() - dob.getMonth();
         const dayDiff = today.getDate() - dob.getDate();
 
@@ -57,13 +57,14 @@ export const userValidationRules = () => {
       .isMobilePhone("any")
       .withMessage("Invalid phone number")
       .custom((value) => {
-        if (!/^\+?\d{1,3}\s?\d{7,15}$/.test(value)) {
+        if (!/^\+?\d{1,3}\s?\d{7,11}$/.test(value)) {
           throw new Error("Phone number must include country code (e.g., +1 1234567890).");
         }
         return true;
       }),
   ];
 };
+
 
 export const validate = (req, res, next) => {
   const errors = validationResult(req);

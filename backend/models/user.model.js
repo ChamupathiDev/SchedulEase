@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema(
     profilePicture: {
       type: String,
       default:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn9zilY2Yu2hc19pDZFxgWDTUDy5DId7ITqA&s",
+        "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png",
     },
   },
   { timestamps: true }

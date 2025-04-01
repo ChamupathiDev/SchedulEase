@@ -57,6 +57,7 @@ export default function AdminUsers() {
               <th className="border p-2">Address</th>
               <th className="border p-2">Degree Program</th>
               <th className="border p-2">Faculty</th>
+              <th className="border p-2">Gender</th>
               <th className="border p-2">Actions</th>
 
             </tr>
@@ -74,9 +75,10 @@ export default function AdminUsers() {
                 <td className="border p-2">{user.address}</td>
                 <td className="border p-2">{user.degreeProgram}</td>
                 <td className="border p-2">{user.faculty}</td>
+                <td className="border p-2">{user.gender}</td>
                 <td className="border p-4 flex space-x-6">
                   <button
-                    onClick={() => navigate(`/admin/edit-user/${user._id}`)}
+                    onClick={() => navigate(`/updateuser/${user._id}`)}
                     title="Edit"
                   >
                     <FaEdit className="text-blue-500" />

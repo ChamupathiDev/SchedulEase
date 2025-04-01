@@ -36,7 +36,7 @@ router.post(
 
   router.get("/users", adminGetUsers);
 router.get("/user/:id", adminGetUser);
-router.put("/user/:id", adminUpdateUser);
+router.put("/user/:id",userValidationRules(), validate, adminUpdateUser);
 router.delete("/user/:id", adminDeleteUser);
 
 export default router;

@@ -48,7 +48,7 @@ const validateDateOfBirth = (dob) => {
 };
 
 const validatePhoneNumber = (phone) => {
-  const phoneRegex = /^\+?\d{1,3}\s?\d{7,15}$/;
+  const phoneRegex = /^\+?\d{1,3}\s?\d{7,11}$/;
   if (!phoneRegex.test(phone)) {
     return "Phone number must include country code (e.g., +1 1234567890).";
   }

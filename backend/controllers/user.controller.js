@@ -44,6 +44,9 @@ export const updateUser = async (req, res, next) => {
       { new: true }
     );
 
+    if (!updatedUser) {
+      return next(errorHandler(404, "User not found after update"));
+    }
     // Exclude password from response
     const { password, ...rest } = updatedUser._doc;
     res.status(200).json(rest);

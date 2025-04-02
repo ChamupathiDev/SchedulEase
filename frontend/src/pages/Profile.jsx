@@ -72,7 +72,7 @@ export default function Profile() {
   const [showPassword, setShowPassword] = useState(false);
   const MASKED_PASSWORD = "********";
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -181,7 +181,7 @@ export default function Profile() {
         "Update error:",
         err.response ? err.response.data : err.message
       );
-     const errorMsg = err.response?.data?.message || err.message;
+      const errorMsg = err.response?.data?.message || err.message;
       dispatch(updateUserFailure(errorMsg));
       toast.error(errorMsg || "Something went wrong!");
     }
@@ -192,7 +192,9 @@ export default function Profile() {
       dispatch(deleteUserStart());
       const res = await axios.delete(`/api/user/delete/${currentUser._id}`);
       dispatch(deleteUserSuccess(res.data));
-      toast.success("Account deleted successfully!");
+      setTimeout(() => {
+        toast.success("Account deleted successfully!");
+      }, 1000);
       navigate("/sign-in");
     } catch (err) {
       console.error(
@@ -220,233 +222,230 @@ export default function Profile() {
         {/* Profile Card */}
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h1 className="text-3xl font-semibold text-center my-5">Profile</h1>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-              type="file"
-              ref={fileRef}
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-              accept="image/*"
-            />
-            <div className="flex justify-center mb-4">
-              <img
-                src={profileImageUrl}
-                alt="profile"
-                className="h-24 w-24 cursor-pointer rounded-full object-cover"
-                onClick={() =>
-                  fileRef.current && fileRef.current.click()
-                }
-              />
-            </div>
-            {/* Full Name */}
-            <div className="flex flex-col">
-              <label htmlFor="fullName" className="mb-1 font-medium">
-                Full Name
-              </label>
+          {currentUser ? (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
-                value={formData.fullName}
-                type="text"
-                id="fullName"
-                placeholder="Full Name"
-                className="w-full bg-slate-100 rounded-lg p-3"
-                onChange={handleChange}
-                required
+                type="file"
+                ref={fileRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+                accept="image/*"
               />
-            </div>
-            {/* Student ID */}
-            <div className="flex flex-col">
-              <label htmlFor="studentid" className="mb-1 font-medium">
-                Student ID
-              </label>
-              <input
-                value={formData.studentid}
-                type="text"
-                id="studentid"
-                placeholder="e.g., IT12345"
-                className="w-full bg-slate-100 rounded-lg p-3"
-                onChange={handleChange}
-                required
-              />
-              {errors.studentid && (
-                <span className="text-red-500 text-sm">
-                  {errors.studentid}
-                </span>
-              )}
-            </div>
-            {/* Email */}
-            <div className="flex flex-col">
-              <label htmlFor="email" className="mb-1 font-medium">
-                Email
-              </label>
-              <input
-                value={formData.email}
-                type="email"
-                id="email"
-                placeholder="Email"
-                className="w-full bg-slate-100 rounded-lg p-3"
-                onChange={handleChange}
-                required
-              />
-              {errors.email && (
-                <span className="text-red-500 text-sm">
-                  {errors.email}
-                </span>
-              )}
-            </div>
-            {/* Password with Toggle */}
-            <div className="flex flex-col relative">
-              <label htmlFor="password" className="mb-1 font-medium">
-                Password
-              </label>
-              <input
-                value={formData.password}
-                type={showPassword ? "text" : "password"}
-                id="password"
-                placeholder="Password"
-                className="w-full bg-slate-100 rounded-lg p-3 pr-10"
-                onChange={handleChange}
-              />
-              {errors.password && (
-                <span className="text-red-500 text-sm">
-                  {errors.password}
-                </span>
-              )}
-              <div
-                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              <div className="flex justify-center mb-4">
+                <img
+                  src={profileImageUrl}
+                  alt="profile"
+                  className="h-24 w-24 cursor-pointer rounded-full object-cover"
+                  onClick={() => fileRef.current && fileRef.current.click()}
+                />
               </div>
-            </div>
-            {/* Date of Birth */}
-            <div className="flex flex-col">
-              <label htmlFor="dateOfBirth" className="mb-1 font-medium">
-                Date of Birth
-              </label>
-              <input
-                value={formData.dateOfBirth}
-                type="date"
-                id="dateOfBirth"
-                placeholder="Date of Birth"
-                className="w-full bg-slate-100 rounded-lg p-3"
-                onChange={handleChange}
-                required
-              />
-              {errors.dateOfBirth && (
-                <span className="text-red-500 text-sm">
-                  {errors.dateOfBirth}
-                </span>
-              )}
-            </div>
-            {/* Phone Number */}
-            <div className="flex flex-col">
-              <label htmlFor="phoneNumber" className="mb-1 font-medium">
-                Phone Number
-              </label>
-              <input
-                value={formData.phoneNumber}
-                type="tel"
-                id="phoneNumber"
-                placeholder="Phone Number (e.g., +1 1234567890)"
-                className="w-full bg-slate-100 rounded-lg p-3"
-                onChange={handleChange}
-                required
-              />
-              {errors.phoneNumber && (
-                <span className="text-red-500 text-sm">
-                  {errors.phoneNumber}
-                </span>
-              )}
-            </div>
-            {/* Address */}
-            <div className="flex flex-col">
-              <label htmlFor="address" className="mb-1 font-medium">
-                Address
-              </label>
-              <input
-                value={formData.address}
-                type="text"
-                id="address"
-                placeholder="Address"
-                className="w-full bg-slate-100 rounded-lg p-3"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            {/* Degree Program */}
-            <div className="flex flex-col">
-              <label htmlFor="degreeProgram" className="mb-1 font-medium">
-                Degree Program
-              </label>
-              <input
-                value={formData.degreeProgram}
-                type="text"
-                id="degreeProgram"
-                placeholder="Degree Program"
-                className="w-full bg-slate-100 rounded-lg p-3"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            {/* Faculty */}
-            <div className="flex flex-col">
-              <label htmlFor="faculty" className="mb-1 font-medium">
-                Faculty
-              </label>
-              <select
-                id="faculty"
-                value={formData.faculty}
-                onChange={handleChange}
-                className="w-full bg-slate-100 rounded-lg p-3"
-                required
+              {/* Full Name */}
+              <div className="flex flex-col">
+                <label htmlFor="fullName" className="mb-1 font-medium">
+                  Full Name
+                </label>
+                <input
+                  value={formData.fullName}
+                  type="text"
+                  id="fullName"
+                  placeholder="Full Name"
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {/* Student ID */}
+              <div className="flex flex-col">
+                <label htmlFor="studentid" className="mb-1 font-medium">
+                  Student ID
+                </label>
+                <input
+                  value={formData.studentid}
+                  type="text"
+                  id="studentid"
+                  placeholder="e.g., IT12345"
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  onChange={handleChange}
+                  required
+                />
+                {errors.studentid && (
+                  <span className="text-red-500 text-sm">
+                    {errors.studentid}
+                  </span>
+                )}
+              </div>
+              {/* Email */}
+              <div className="flex flex-col">
+                <label htmlFor="email" className="mb-1 font-medium">
+                  Email
+                </label>
+                <input
+                  value={formData.email}
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  onChange={handleChange}
+                  required
+                />
+                {errors.email && (
+                  <span className="text-red-500 text-sm">{errors.email}</span>
+                )}
+              </div>
+              {/* Password with Toggle */}
+              <div className="flex flex-col relative">
+                <label htmlFor="password" className="mb-1 font-medium">
+                  Password
+                </label>
+                <input
+                  value={formData.password}
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  placeholder="Password"
+                  className="w-full bg-slate-100 rounded-lg p-3 pr-10"
+                  onChange={handleChange}
+                />
+                {errors.password && (
+                  <span className="text-red-500 text-sm">
+                    {errors.password}
+                  </span>
+                )}
+                <div
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </div>
+              </div>
+              {/* Date of Birth */}
+              <div className="flex flex-col">
+                <label htmlFor="dateOfBirth" className="mb-1 font-medium">
+                  Date of Birth
+                </label>
+                <input
+                  value={formData.dateOfBirth}
+                  type="date"
+                  id="dateOfBirth"
+                  placeholder="Date of Birth"
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  onChange={handleChange}
+                  required
+                />
+                {errors.dateOfBirth && (
+                  <span className="text-red-500 text-sm">
+                    {errors.dateOfBirth}
+                  </span>
+                )}
+              </div>
+              {/* Phone Number */}
+              <div className="flex flex-col">
+                <label htmlFor="phoneNumber" className="mb-1 font-medium">
+                  Phone Number
+                </label>
+                <input
+                  value={formData.phoneNumber}
+                  type="tel"
+                  id="phoneNumber"
+                  placeholder="Phone Number (e.g., +1 1234567890)"
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  onChange={handleChange}
+                  required
+                />
+                {errors.phoneNumber && (
+                  <span className="text-red-500 text-sm">
+                    {errors.phoneNumber}
+                  </span>
+                )}
+              </div>
+              {/* Address */}
+              <div className="flex flex-col">
+                <label htmlFor="address" className="mb-1 font-medium">
+                  Address
+                </label>
+                <input
+                  value={formData.address}
+                  type="text"
+                  id="address"
+                  placeholder="Address"
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {/* Degree Program */}
+              <div className="flex flex-col">
+                <label htmlFor="degreeProgram" className="mb-1 font-medium">
+                  Degree Program
+                </label>
+                <input
+                  value={formData.degreeProgram}
+                  type="text"
+                  id="degreeProgram"
+                  placeholder="Degree Program"
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {/* Faculty */}
+              <div className="flex flex-col">
+                <label htmlFor="faculty" className="mb-1 font-medium">
+                  Faculty
+                </label>
+                <select
+                  id="faculty"
+                  value={formData.faculty}
+                  onChange={handleChange}
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  required
+                >
+                  <option value="">Select Faculty</option>
+                  <option value="Faculty of Computing">
+                    Faculty of Computing
+                  </option>
+                  <option value="Faculty of Engineering">
+                    Faculty of Engineering
+                  </option>
+                  <option value="Faculty of Business">
+                    Faculty of Business
+                  </option>
+                </select>
+              </div>
+              {/* Gender */}
+              <div className="flex flex-col">
+                <label htmlFor="gender" className="mb-1 font-medium">
+                  Gender
+                </label>
+                <select
+                  id="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  className="w-full bg-slate-100 rounded-lg p-3"
+                  required
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <button
+                className="bg-slate-700 text-white w-full p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+                disabled={loading}
               >
-                <option value="">Select Faculty</option>
-                <option value="Faculty of Computing">
-                  Faculty of Computing
-                </option>
-                <option value="Faculty of Engineering">
-                  Faculty of Engineering
-                </option>
-                <option value="Faculty of Business">
-                  Faculty of Business
-                </option>
-              </select>
-            </div>
-            {/* Gender */}
-            <div className="flex flex-col">
-              <label htmlFor="gender" className="mb-1 font-medium">
-                Gender
-              </label>
-              <select
-                id="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                className="w-full bg-slate-100 rounded-lg p-3"
-                required
+                {loading ? "Loading..." : "Update"}
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 focus:outline-none"
               >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <button
-              className="bg-slate-700 text-white w-full p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
-              disabled={loading}
-            >
-              {loading ? "Loading..." : "Update"}
-            </button>
-            <button
-            onClick={handleDeleteAccount}
-            className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 focus:outline-none"
-          >
-            Delete Account
-          </button>
-          </form>
+                Delete Account
+              </button>
+            </form>
+          ) : (
+            <p>User not found. Please sign in again.</p>
+          )}
         </div>
-        
-          
-        
       </div>
       <Footer />
       <ToastContainer />

@@ -40,6 +40,7 @@ const AdminNav = ({ toggleSidebar }) => {
                 <li className='px-4 py-2 hover:bg-gray-200'><a href="#">Settings</a></li>
                 <li className='px-4 py-2 hover:bg-gray-200'><a href="/mainhome">Logout</a></li>
               </ul>
+              
             </div>
           )}
         </div>

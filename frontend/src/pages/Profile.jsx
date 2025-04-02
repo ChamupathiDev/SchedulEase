@@ -146,6 +146,10 @@ export default function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!currentUser) {
+      toast.error("User not found. Please sign in again.");
+      return;
+    }
     const newErrors = {
       email: validateEmail(formData.email),
       studentid: validateStudentId(formData.studentid),
@@ -188,7 +192,8 @@ export default function Profile() {
       dispatch(deleteUserStart());
       const res = await axios.delete(`/api/user/delete/${currentUser._id}`);
       dispatch(deleteUserSuccess(res.data));
-        toast.success("Account deleted successfully!");
+      toast.success("Account deleted successfully!");
+      navigate("/sign-in");
     } catch (err) {
       console.error(
         "Delete error:",

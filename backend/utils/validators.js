@@ -57,8 +57,8 @@ export const userValidationRules = () => {
       .isMobilePhone("any")
       .withMessage("Invalid phone number")
       .custom((value) => {
-        if (!/^\+?\d{1,3}\s?\d{7,11}$/.test(value)) {
-          throw new Error("Phone number must include country code (e.g., +1 1234567890).");
+        if (!/^\+94\d{9}$/.test(value)) {
+          throw new Error("Phone number must be in the format +947XXXXXXXX.");
         }
         return true;
       }),

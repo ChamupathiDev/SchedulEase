@@ -76,7 +76,7 @@ export default function AdminUsers() {
                 <td className="border p-2">{user.degreeProgram}</td>
                 <td className="border p-2">{user.faculty}</td>
                 <td className="border p-2">{user.gender}</td>
-                <td className="border p-4 flex space-x-6">
+                <td className="border p-8 flex space-x-6">
                   <button
                     onClick={() => navigate(`/updateuser/${user._id}`)}
                     title="Edit"

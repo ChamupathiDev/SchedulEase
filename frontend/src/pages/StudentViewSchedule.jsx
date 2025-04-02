@@ -68,7 +68,7 @@ const StudentViewSchedules = () => {
       className="flex flex-col min-h-screen bg-cover bg-center "
       
     >
-      <main className="flex-grow max-w-full mx-auto p-2  bg-opacity-70 rounded-lg shadow-md mt-2 mb-2" >
+      <main className="flex-grow max-w-full mx-auto p-2  bg-opacity-70 rounded-lg shadow-md mt-2 mb-2 font-Poppins" >
         {/* Input Mood Button Positioned Above the Table */}
         <div className="flex justify-end mb-4">
           <button

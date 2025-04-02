@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import OAuth from "../components/OAuth";
-import Footer from "../components/Footer";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Helper validation functions
 const validateEmail = (email) => {
@@ -69,7 +70,6 @@ export default function SignUp() {
     gender: "",
   });
   const [errors, setErrors] = useState({});
-  const [errorSubmit, setErrorSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -112,10 +112,11 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      setErrorSubmit(false);
+      
       const res = await axios.post("/api/auth/signup", formData);
       console.log(res.data);
       setLoading(false);
+      toast.success("User created successfully!");
       navigate("/sign-in");
     } catch (error) {
       console.error(
@@ -123,7 +124,8 @@ export default function SignUp() {
         error.response ? error.response.data : error.message
       );
       setLoading(false);
-      setErrorSubmit(true);
+      const errorMsg = err.response?.data?.message || err.message;
+      toast.error(errorMsg || "Something went wrong!");
     }
   };
 
@@ -329,13 +331,9 @@ export default function SignUp() {
             <span className="text-blue-500">Sign in</span>
           </Link>
         </div>
-        {errorSubmit && (
-          <p className="text-red-700 mt-5 text-center">
-            Something went wrong!
-          </p>
-        )}
+        
       </div>
-      <Footer />
+      
     </div>
   );
 }

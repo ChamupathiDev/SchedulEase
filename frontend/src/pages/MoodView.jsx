@@ -100,7 +100,7 @@ const MoodView = () => {
           />
         </div>
         {/* Right Column: Form */}
-        <div className="flex flex-col md:w-1/2 items-center  p-6" style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}>
+        <div className="flex flex-col md:w-1/2 items-center  p-6 font-Poppins" style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}>
           <div className="bg-white shadow-md rounded p-6 w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-4 text-center">Input Your Mood</h2>
             <form onSubmit={handleSubmit}>

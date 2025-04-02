@@ -1,4 +1,3 @@
-// profile.jsx
 import { useSelector } from "react-redux";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -9,13 +8,14 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
-  signOut,
 } from "../redux/user/userSlice.js";
 import axios from "axios";
 import Footer from "../components/Footer.jsx";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// Helper validation functions (same as in signup)
+// Validation helper functions
 const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
@@ -64,10 +64,9 @@ const validatePhoneNumber = (phone) => {
 };
 
 export default function Profile() {
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const fileRef = useRef(null);
-  const [updateSuccess, setUpdateSuccess] = useState(false);
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const MASKED_PASSWORD = "********";
@@ -125,15 +124,20 @@ export default function Profile() {
     const formDataImage = new FormData();
     formDataImage.append("profilePicture", file);
     try {
-      const res = await axios.post("/api/user/upload-profile-picture", formDataImage, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await axios.post(
+        "/api/user/upload-profile-picture",
+        formDataImage,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
       dispatch(updateUserSuccess(res.data));
+      toast.success("Profile picture updated successfully!");
     } catch (err) {
       console.error(
         "File upload error:",
         err.response ? err.response.data : err.message
       );
+      const errorMsg = err.response?.data?.message || err.message;
+      toast.error(errorMsg);
     }
   };
 
@@ -159,25 +163,22 @@ export default function Profile() {
       dispatch(updateUserStart());
       const payload = { ...formData };
       if (payload.password === MASKED_PASSWORD) delete payload.password;
-      const res = await axios.post(`/api/user/update/${currentUser._id}`, payload);
+      const res = await axios.post(
+        `/api/user/update/${currentUser._id}`,
+        payload
+      );
       dispatch(updateUserSuccess(res.data));
-      setUpdateSuccess(true);
+      toast.success("User updated successfully!");
     } catch (err) {
       console.error(
         "Update error:",
         err.response ? err.response.data : err.message
       );
+      
+
       const errorMsg = err.response?.data?.message || err.message;
       dispatch(updateUserFailure(errorMsg));
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await axios.get("/api/auth/signout");
-      dispatch(signOut());
-    } catch (error) {
-      console.log(error);
+      toast.error(errorMsg || "Something went wrong!");
     }
   };
 
@@ -188,6 +189,9 @@ export default function Profile() {
         data: formData,
       });
       dispatch(deleteUserSuccess(res.data));
+      setTimeout(() => {
+        toast.success("Account deleted successfully!");
+      },1000);
     } catch (err) {
       console.error(
         "Delete error:",
@@ -195,10 +199,11 @@ export default function Profile() {
       );
       const errorMsg = err.response?.data?.message || err.message;
       dispatch(deleteUserFailure(errorMsg));
+      toast.error(errorMsg || "Something went wrong!");
     }
   };
 
-  // Construct full URL for profile image
+  // Construct full URL for profile image.
   const backendUrl = "http://localhost:3000";
   const profileImageUrl =
     currentUser &&
@@ -226,7 +231,9 @@ export default function Profile() {
                 src={profileImageUrl}
                 alt="profile"
                 className="h-24 w-24 cursor-pointer rounded-full object-cover"
-                onClick={() => fileRef.current && fileRef.current.click()}
+                onClick={() =>
+                  fileRef.current && fileRef.current.click()
+                }
               />
             </div>
             {/* Full Name */}
@@ -259,7 +266,9 @@ export default function Profile() {
                 required
               />
               {errors.studentid && (
-                <span className="text-red-500 text-sm">{errors.studentid}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.studentid}
+                </span>
               )}
             </div>
             {/* Email */}
@@ -277,7 +286,9 @@ export default function Profile() {
                 required
               />
               {errors.email && (
-                <span className="text-red-500 text-sm">{errors.email}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.email}
+                </span>
               )}
             </div>
             {/* Password with Toggle */}
@@ -294,7 +305,9 @@ export default function Profile() {
                 onChange={handleChange}
               />
               {errors.password && (
-                <span className="text-red-500 text-sm">{errors.password}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.password}
+                </span>
               )}
               <div
                 className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
@@ -318,7 +331,9 @@ export default function Profile() {
                 required
               />
               {errors.dateOfBirth && (
-                <span className="text-red-500 text-sm">{errors.dateOfBirth}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.dateOfBirth}
+                </span>
               )}
             </div>
             {/* Phone Number */}
@@ -336,7 +351,9 @@ export default function Profile() {
                 required
               />
               {errors.phoneNumber && (
-                <span className="text-red-500 text-sm">{errors.phoneNumber}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.phoneNumber}
+                </span>
               )}
             </div>
             {/* Address */}
@@ -382,9 +399,15 @@ export default function Profile() {
                 required
               >
                 <option value="">Select Faculty</option>
-                <option value="Faculty of Computing">Faculty of Computing</option>
-                <option value="Faculty of Engineering">Faculty of Engineering</option>
-                <option value="Faculty of Business">Faculty of Business</option>
+                <option value="Faculty of Computing">
+                  Faculty of Computing
+                </option>
+                <option value="Faculty of Engineering">
+                  Faculty of Engineering
+                </option>
+                <option value="Faculty of Business">
+                  Faculty of Business
+                </option>
               </select>
             </div>
             {/* Gender */}
@@ -411,28 +434,20 @@ export default function Profile() {
             >
               {loading ? "Loading..." : "Update"}
             </button>
-          </form>
-        </div>
-        <div className="flex justify-between gap-4 mt-5">
-          <button
+            <button
             onClick={handleDeleteAccount}
             className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 focus:outline-none"
           >
             Delete Account
           </button>
-          <button
-            onClick={handleSignOut}
-            className="w-full bg-gray-700 text-white py-2 rounded-lg hover:bg-gray-800 focus:outline-none"
-          >
-            Sign Out
-          </button>
+          </form>
         </div>
-        {error && <p className="text-red-700 mt-5">Something went wrong!</p>}
-        {updateSuccess && (
-          <p className="text-green-700 mt-5">User updated successfully!</p>
-        )}
+        
+          
+        
       </div>
       <Footer />
+      <ToastContainer />
     </div>
   );
 }

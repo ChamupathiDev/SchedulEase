@@ -16,13 +16,18 @@ import AdminDashboard from "./pages/AdminPanel/AdminDashboard";
 import MoodView from "./pages/MoodView";
 import AdminUsers from "./pages/UserDetails/AdminUsers";
 import AdminEditUser from "./pages/UserDetails/AdminEditUser";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function App() {
   return (
     <BrowserRouter>
+    
+    <ToastContainer />
       {/* header */}
       <Header />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />

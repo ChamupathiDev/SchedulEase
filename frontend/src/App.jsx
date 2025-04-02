@@ -17,6 +17,7 @@ import AdminNav from "./components/AdminPanel/AdminNav";
 import AdminSidebar from "./components/AdminPanel/AdminSidebar";
 import AdminDashboard from "./components/AdminPanel/AdminDashboard";
 import AdminLogin from "./components/AdminPanel/AdminLogin";
+import ScheduleBarChart from "./components/Charts/ScheduleBarChart";
 
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/adminsidebar" element={<AdminSidebar />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="/schedulecharts" element={<ScheduleBarChart />} />
 
 
         </Route>

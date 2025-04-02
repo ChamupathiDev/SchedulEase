@@ -14,6 +14,7 @@ import Footer from "../components/Footer.jsx";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 // Validation helper functions
 const validateEmail = (email) => {
@@ -70,6 +71,8 @@ export default function Profile() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const MASKED_PASSWORD = "********";
+
+   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -174,9 +177,7 @@ export default function Profile() {
         "Update error:",
         err.response ? err.response.data : err.message
       );
-      
-
-      const errorMsg = err.response?.data?.message || err.message;
+     const errorMsg = err.response?.data?.message || err.message;
       dispatch(updateUserFailure(errorMsg));
       toast.error(errorMsg || "Something went wrong!");
     }
@@ -185,13 +186,9 @@ export default function Profile() {
   const handleDeleteAccount = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await axios.delete(`/api/user/delete/${currentUser._id}`, {
-        data: formData,
-      });
+      const res = await axios.delete(`/api/user/delete/${currentUser._id}`);
       dispatch(deleteUserSuccess(res.data));
-      setTimeout(() => {
         toast.success("Account deleted successfully!");
-      },1000);
     } catch (err) {
       console.error(
         "Delete error:",

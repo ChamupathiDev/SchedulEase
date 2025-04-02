@@ -12,6 +12,7 @@ const fetchSchedules = async () => {
     return await axios.get(URL).then((res) => res.data);
 };
 
+
 function ScheduleBarChart() {
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(true);

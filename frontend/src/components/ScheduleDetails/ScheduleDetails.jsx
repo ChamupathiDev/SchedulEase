@@ -66,7 +66,7 @@ function ScheduleDetails() {
     const handlePrint = useReactToPrint({
         contentRef: ComponentsRef, // Use contentRef instead of content callback
         documentTitle: "Schedule Reports",
-        onAfterPrint: () => alert("Schedule report successfully generated!"),
+        
     });
     
     //create search function
@@ -125,7 +125,9 @@ function ScheduleDetails() {
                                 Add Schedule
                             </button>
                         </div>
-                        <div ref={ComponentsRef}>
+                        <div ref={ComponentsRef} >
+                        <h2 className="hidden print:block text-2xl font-bold text-center mb-4">Schedule Report</h2>
+
                             {schedules.length > 0 ? (
                                 <div className="overflow-x-auto">
                                     <table className="min-w-full table-auto bg-white border border-gray-200 shadow-lg rounded-lg">
@@ -139,7 +141,7 @@ function ScheduleDetails() {
                                                 <th className="px-4 py-2 text-left text-gray-700 font-semibold">Date</th>
                                                 <th className="px-4 py-2 text-left text-gray-700 font-semibold">Start Time</th>
                                                 <th className="px-4 py-2 text-left text-gray-700 font-semibold">End Time</th>
-                                                <th className="px-4 py-2 text-left text-gray-700 font-semibold">Action</th>
+                                                <th className="px-4 py-2 text-left text-gray-700 font-semibold print:hidden">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -153,7 +155,7 @@ function ScheduleDetails() {
                                                     <td className="px-4 py-2">{formatDate(schedule.scheduleDate)}</td>
                                                     <td className="px-4 py-2">{formatTime(schedule.startTime)}</td>
                                                     <td className="px-4 py-2">{formatTime(schedule.endTime)}</td>
-                                                    <td className="px-4 py-2">
+                                                    <td className="px-4 py-2 print:hidden">
                                                         <Link
                                                             to={`/updateschedule/${schedule._id}`}
                                                             className="text-blue-500 hover:text-blue-700 mr-2"

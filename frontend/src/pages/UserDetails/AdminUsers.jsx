@@ -43,7 +43,11 @@ export default function AdminUsers() {
   };
 
   const generatePdf = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF({
+      orientation: "landscape",
+      unit: "pt",
+      format: "a4",
+    });
     doc.setFontSize(18);
     doc.text("User Details", 14, 22);
     doc.setFontSize(11);

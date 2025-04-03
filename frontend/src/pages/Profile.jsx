@@ -222,7 +222,7 @@ export default function Profile() {
         {/* Profile Card */}
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h1 className="text-3xl font-semibold text-center my-5">Profile</h1>
-          {currentUser ? (
+         
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
                 type="file"
@@ -435,16 +435,16 @@ export default function Profile() {
               >
                 {loading ? "Loading..." : "Update"}
               </button>
-              <button
+              
+            </form>
+            <br></br>
+            <button
                 onClick={handleDeleteAccount}
                 className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 focus:outline-none"
               >
                 Delete Account
               </button>
-            </form>
-          ) : (
-            <p>User not found. Please sign in again.</p>
-          )}
+         
         </div>
       </div>
       <Footer />

@@ -35,7 +35,7 @@ export const analyzeMood = async (req, res) => {
     }
 
     // Calculate adjustment minutes based on sentiment score.
-    const adjustmentMinutes = score < 0 ? 15 : score > 0 ? -15 : 0;
+    const adjustmentMinutes = score < 0 ? 30 : score > 0 ? -30 : 0;
 
     // Define today's time boundaries.
     const todayStart = new Date(new Date().setHours(0, 0, 0, 0));

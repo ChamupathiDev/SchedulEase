@@ -16,45 +16,85 @@ const getAllSchedules = async (req, res) => {
 
 // Add a schedule
 const addSchedules = async (req, res) => {
-    const { scheduleId, moduleName, gmail, moduleId, scheduleDate, scheduleType, startTime, endTime } = req.body;
+    const {
+        scheduleId,
+        moduleName,
+        gmail,
+        moduleId,
+        scheduleDate,
+        scheduleType,
+        startTime,
+        endTime,
+    } = req.body;
 
+    // 1. Required fields check
     if (!scheduleId || !moduleName || !gmail || !moduleId || !scheduleDate || !scheduleType || !startTime || !endTime) {
-        return res.status(400).json({ message: "All fields are required" });
+        return res.status(400).json({ message: "All fields are required." });
     }
 
-    // Email validation
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // 2. Email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     if (!emailRegex.test(gmail)) {
-        return res.status(400).json({ message: "Invalid email format" });
+        return res.status(400).json({ message: "Only Gmail addresses are allowed." });
     }
-
-    // Schedule Type validation
-    if (!["fix", "flex"].includes(scheduleType)) {
-        return res.status(400).json({ message: "Invalid schedule type. Must be 'fix' or 'flex'." });
-    }
-
-    // Ensure scheduleDate is a future date
     
+    // 3. Schedule type check
+    if (!["fix", "flex"].includes(scheduleType)) {
+        return res.status(400).json({ message: "Schedule Type must be either 'fix' or 'flex'." });
+    }
 
+    // 4. Parse and validate date/time fields
+    const now = new Date();
+    const parsedScheduleDate = new Date(scheduleDate);
+    const parsedStartTime = new Date(startTime);
+    const parsedEndTime = new Date(endTime);
+
+    if (parsedScheduleDate.setHours(0, 0, 0, 0) < now.setHours(0, 0, 0, 0)) {
+        return res.status(400).json({ message: "Schedule date must be today or in the future." });
+    }
+
+    if (isNaN(parsedStartTime.getTime()) || isNaN(parsedEndTime.getTime())) {
+        return res.status(400).json({ message: "Start Time and End Time must be valid date/time values." });
+    }
+
+    const isSameDay = (d1, d2) =>
+        d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate();
+
+    if (!isSameDay(parsedStartTime, parsedScheduleDate) || !isSameDay(parsedEndTime, parsedScheduleDate)) {
+        return res.status(400).json({ message: "Start and End times must be on the same day as the Schedule Date." });
+    }
+
+    if (parsedEndTime <= parsedStartTime) {
+        return res.status(400).json({ message: "End Time must be after Start Time." });
+    }
+
+    // 5. Store the provided input as-is (no date transformation)
     try {
-        const schedules = new Schedule({
+        const schedule = new Schedule({
             scheduleId,
             moduleName,
             gmail,
             moduleId,
-            scheduleDate,
+            scheduleDate,   // stored as string
             scheduleType,
-            startTime,
-            endTime,
+            startTime,      // stored as string
+            endTime         // stored as string
         });
 
-        await schedules.save();
-        return res.status(201).json({ schedules });
+        await schedule.save();
+
+        return res.status(201).json({
+            message: "Schedule added successfully.",
+            schedule
+        });
     } catch (err) {
         console.error("Error adding schedule:", err);
-        return res.status(500).json({ message: "Error adding schedule", error: err.message });
+        return res.status(500).json({ message: "Error saving schedule", error: err.message });
     }
 };
+
 
 // Get schedule by ID
 const getById = async (req, res) => {

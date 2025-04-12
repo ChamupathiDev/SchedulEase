@@ -41,11 +41,11 @@ const scheduleSchema = new Schema({
         required: [true, "Schedule Type is required."]
     },
     startTime: {
-        type: Date, 
+        type: String, 
         required: [true, "Start Time is required."],
     },
     endTime: {
-        type: Date, 
+        type: String, 
         required: [true, "End Time is required."],
         validate: {
             validator: function(value) {

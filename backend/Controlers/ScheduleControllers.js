@@ -112,14 +112,85 @@ const getById = async (req, res) => {
 
 // Update schedule
 const updateSchedule = async (req, res) => {
+    const { 
+        scheduleId, 
+        moduleName, 
+        gmail, 
+        moduleId, 
+        scheduleDate, 
+        scheduleType, 
+        startTime, 
+        endTime 
+    } = req.body;
+
+    // 1. Required fields check
+    if (!scheduleId || !moduleName || !gmail || !moduleId || !scheduleDate || !scheduleType || !startTime || !endTime) {
+        return res.status(400).json({ message: "All fields are required." });
+    }
+
+    // 2. Email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailRegex.test(gmail)) {
+        return res.status(400).json({ message: "Only Gmail addresses are allowed." });
+    }
+
+    // 3. Schedule type check
+    if (!["fix", "flex"].includes(scheduleType)) {
+        return res.status(400).json({ message: "Schedule Type must be either 'fix' or 'flex'." });
+    }
+
+    // 4. Parse and validate date/time fields
+    const now = new Date();
+    const parsedScheduleDate = new Date(scheduleDate);
+    const parsedStartTime = new Date(startTime);
+    const parsedEndTime = new Date(endTime);
+
+    if (parsedScheduleDate.setHours(0, 0, 0, 0) < now.setHours(0, 0, 0, 0)) {
+        return res.status(400).json({ message: "Schedule date must be today or in the future." });
+    }
+
+    if (isNaN(parsedStartTime.getTime()) || isNaN(parsedEndTime.getTime())) {
+        return res.status(400).json({ message: "Start Time and End Time must be valid date/time values." });
+    }
+
+    const isSameDay = (d1, d2) =>
+        d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate();
+
+    if (!isSameDay(parsedStartTime, parsedScheduleDate) || !isSameDay(parsedEndTime, parsedScheduleDate)) {
+        return res.status(400).json({ message: "Start and End times must be on the same day as the Schedule Date." });
+    }
+
+    if (parsedEndTime <= parsedStartTime) {
+        return res.status(400).json({ message: "End Time must be after Start Time." });
+    }
+
+    // 5. Proceed with updating the schedule
     try {
-        const updatedSchedule = await Schedule.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedSchedule = await Schedule.findByIdAndUpdate(
+            req.params.id, 
+            {
+                scheduleId,
+                moduleName,
+                gmail,
+                moduleId,
+                scheduleDate,   // stored as string
+                scheduleType,
+                startTime,      // stored as string
+                endTime         // stored as string
+            },
+            { new: true }
+        );
 
         if (!updatedSchedule) {
-            return res.status(404).json({ message: "Schedule not found" });
+            return res.status(404).json({ message: "Schedule not found." });
         }
 
-        return res.status(200).json({ updatedSchedule });
+        return res.status(200).json({ 
+            message: "Schedule updated successfully.", 
+            updatedSchedule 
+        });
     } catch (err) {
         console.error("Error updating schedule:", err);
         return res.status(500).json({ message: "Error updating schedule", error: err.message });

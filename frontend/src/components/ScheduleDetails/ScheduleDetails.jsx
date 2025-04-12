@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import AdminNavandSidebar from "../AdminPanel/AdminNavAndSidebar";
 import { useReactToPrint } from "react-to-print";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const URL = "http://localhost:5000/schedules";
 
@@ -39,9 +42,13 @@ function ScheduleDetails() {
     }, []);
 
     const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this schedule?");
+        if (!confirmDelete) return;
+
         try {
             await axios.delete(`${URL}/${id}`);
             setScheduleDetails(schedules.filter((schedule) => schedule._id !== id));
+            toast.success("Schedule deleted successfully!");
         } catch (error) {
             console.error("Error deleting schedule:", error);
         }
@@ -188,6 +195,7 @@ function ScheduleDetails() {
                 >
                     Generate Report
                 </button>
+                <ToastContainer />
             </div>
         </div>
     );

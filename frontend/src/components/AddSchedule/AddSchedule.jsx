@@ -200,14 +200,18 @@ function AddSchedule() {
                     {/* Schedule Type */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Schedule Type</label>
-                        <input
-                            type="text"
+                        <select
                             name="scheduleType"
                             value={inputs.scheduleType}
                             onChange={handleChange}
                             className={`w-full p-2 mt-1 border ${errors.scheduleType ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring focus:ring-blue-200 focus:outline-none`}
                             required
-                        />
+                        >
+                            <option value="" disabled>Select schedule type</option>
+                            <option value="fix">Fix</option>
+                            <option value="flex">Flex</option>
+                        </select>
+                        {errors.scheduleType && <span className="text-red-500 text-sm">{errors.scheduleType}</span>}
                     </div>
 
                     {/* Start Time */}

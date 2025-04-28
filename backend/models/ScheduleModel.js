@@ -63,6 +63,12 @@ const scheduleSchema = new Schema({
     // Optionally, track the time of the update
     updatedAt: {
         type: Date
+    },
+    DeliveryMode: {
+        type: String
+    },
+    Lecturer: {
+        type: String
     }
 });
 

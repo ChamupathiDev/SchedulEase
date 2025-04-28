@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Schedule({ schedule }) {
-    const { _id, scheduleId, email, moduleName,moduleId,scheduleDate,scheduleType,startTime,endTime} = schedule;
+    const { _id, scheduleId, email, moduleName,moduleId,Lecturer,DeliveryMode,scheduleDate,scheduleType,startTime,endTime} = schedule;
     const navigate = useNavigate(); // Corrected variable name
 
     const deleteHandler = async () => {
@@ -23,6 +23,8 @@ function Schedule({ schedule }) {
                 <p><strong>Email:</strong> {email}</p>
                 <p><strong>Module Name:</strong> {moduleName}</p>
                 <p><strong>Module ID:</strong> {moduleId}</p>
+                <p><strong>Lecturer Name:</strong> {Lecturer}</p>
+                <p><strong>Delivery Mode:</strong> {DeliveryMode}</p>
                 <p><strong>schedule Date:</strong> {scheduleDate}</p>
                 <p><strong>schedule Type:</strong> {scheduleType}</p>
                 <p><strong>start Time:</strong> {startTime}</p>

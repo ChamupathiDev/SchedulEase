@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
+
+
 import {
   signInSuccess,
   viewScheduleFailure,
@@ -50,11 +52,10 @@ const StudentViewSchedules = () => {
   const todayDate = new Date();
   const formattedToday = todayDate.toLocaleDateString();
 
-  // Filter schedules for today.
-  const todayISO = todayDate.toISOString().split('T')[0];
+  // Filter schedules for today using local date comparison.
   const todaysSchedules = schedules.filter((schedule) => {
-    const scheduleDate = new Date(schedule.scheduleDate).toISOString().split('T')[0];
-    return scheduleDate === todayISO;
+    const scheduleLocalDate = new Date(schedule.scheduleDate).toLocaleDateString();
+    return scheduleLocalDate === formattedToday;
   });
 
   // Define a threshold (in milliseconds) for considering an update "recent"
@@ -64,16 +65,10 @@ const StudentViewSchedules = () => {
 
   return (
     <div
-      className="flex flex-col min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: 'url("https://img.freepik.com/free-photo/gray-painted-background_53876-94041.jpg")' }}
+      className="flex flex-col min-h-screen bg-cover bg-center "
+      
     >
-      <main className="flex-grow max-w-full mx-auto p-6 bg-white bg-opacity-70 rounded-lg shadow-md mt-4 mb-4">
-        {/* Daily Schedule Card */}
-        <div className="w-full flex justify-center mb-6">
-          <div className="px-6 py-3 bg-blue-600 text-white text-2xl font-bold rounded-md shadow-md">
-            Daily Schedule
-          </div>
-        </div>
+      <main className="flex-grow max-w-full mx-auto p-2  bg-opacity-70 rounded-lg shadow-md mt-2 mb-2 font-Poppins" >
         {/* Input Mood Button Positioned Above the Table */}
         <div className="flex justify-end mb-4">
           <button
@@ -90,12 +85,18 @@ const StudentViewSchedules = () => {
           ) : error ? (
             <p className="text-center text-red-500">{error}</p>
           ) : todaysSchedules.length > 0 ? (
-            <table className="min-w-full border border-gray-400 border-collapse">
+            <div className="overflow-hidden rounded-lg border border-gray-400">
+            <table className="min-w-full border border-gray-400 border-collapse bg-opacity-70 bg-white">
               <thead>
+              <tr className="bg-blue-600 text-white">
+                  <th colSpan={7} className="py-3 px-9 border border-gray-400 text-center">
+                    Daily Schedule
+                  </th>
+                </tr>
                 {/* Date header spanning all columns */}
-                <tr className="bg-blue-600 text-white">
-                  <th colSpan={5} className="py-3 px-4 border border-gray-400 text-center">
-                    {formattedToday}
+                <tr className="bg-blue-200 font-bold">
+                  <th colSpan={7} className="py-3 px-9 border border-gray-400 text-center">
+                    Date: {formattedToday}
                   </th>
                 </tr>
                 {/* Second header row: Time merged cell and other headers */}
@@ -103,6 +104,8 @@ const StudentViewSchedules = () => {
                   <th colSpan={2} className="py-2 px-4 border border-gray-400">Time</th>
                   <th rowSpan={2} className="py-3 px-4 border border-gray-400">Module ID</th>
                   <th rowSpan={2} className="py-3 px-4 border border-gray-400">Module Name</th>
+                  <th rowSpan={2} className="py-3 px-4 border border-gray-400">Lecturer Name</th>
+                  <th rowSpan={2} className="py-3 px-4 border border-gray-400">Delivery Mode</th>
                   <th rowSpan={2} className="py-3 px-4 border border-gray-400">Schedule Type</th>
                 </tr>
                 {/* Third header row: Sub-columns for Time */}
@@ -135,6 +138,12 @@ const StudentViewSchedules = () => {
                         {schedule.moduleName}
                       </td>
                       <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {schedule.Lecturer}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
+                        {schedule.DeliveryMode}
+                      </td>
+                      <td className="py-4 px-6 border border-gray-400 text-gray-700">
                         {schedule.scheduleType}
                       </td>
                     </tr>
@@ -142,6 +151,7 @@ const StudentViewSchedules = () => {
                 })}
               </tbody>
             </table>
+            </div>
           ) : (
             <p className="text-gray-500 text-center mt-6">No schedules for today.</p>
           )}

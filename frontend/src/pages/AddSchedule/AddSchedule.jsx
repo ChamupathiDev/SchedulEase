@@ -13,6 +13,8 @@ function AddSchedule() {
         email: "",
         moduleName: "",
         moduleId: "",
+        Lecturer: "",
+        DeliveryMode: "",
         scheduleDate: "",
         scheduleType: "",
         startTime: "",
@@ -24,6 +26,8 @@ function AddSchedule() {
         email: "",
         moduleName: "",
         moduleId: "",
+        Lecturer: "",
+        DeliveryMode: "",
         scheduleDate: "",
         scheduleType: "",
         startTime: "",
@@ -56,6 +60,8 @@ function AddSchedule() {
             newErrors.email = "Enter a valid Gmail address (e.g., example@gmail.com)";
         }    
         if (!inputs.moduleId) newErrors.moduleId = "Module ID is required";
+        if (!inputs.Lecturer) newErrors.Lecturer = "Lecturer name is required";
+        if (!inputs.DeliveryMode) newErrors.DeliveryMode = "Delivery Mode is required";
         if (!inputs.scheduleDate) newErrors.scheduleDate = "Schedule Date is required";
         if (!inputs.scheduleType) newErrors.scheduleType = "Schedule Type is required";
         if (!inputs.startTime) newErrors.startTime = "Start Time is required";
@@ -105,11 +111,13 @@ function AddSchedule() {
             const [endHours, endMinutes] = inputs.endTime.split(":");
             endDateTime.setHours(endHours, endMinutes, 0, 0);
 
-            const response = await axios.post("api/schedules", {
+            const response = await axios.post("/api/schedules", {
                 scheduleId: inputs.scheduleId,
                 email: inputs.email,
                 moduleName: inputs.moduleName,
                 moduleId: inputs.moduleId,
+                Lecturer: inputs.Lecturer,
+                DeliveryMode: inputs.DeliveryMode,
                 scheduleDate: scheduleDateObj.toISOString(),
                 scheduleType: inputs.scheduleType,
                 startTime: startDateTime.toISOString(),
@@ -183,6 +191,30 @@ function AddSchedule() {
                         />
                     </div>
 
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Lecturer Name</label>
+                        <input
+                            type="text"
+                            name="Lecturer"
+                            value={inputs.Lecturer}
+                            onChange={handleChange}
+                            className={`w-full p-2 mt-1 border ${errors.Lecturer ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring focus:ring-blue-200 focus:outline-none`}
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Delivery Mode</label>
+                        <input
+                            type="text"
+                            name="DeliveryMode"
+                            value={inputs.DeliveryMode}
+                            onChange={handleChange}
+                            className={`w-full p-2 mt-1 border ${errors.DeliveryMode ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring focus:ring-blue-200 focus:outline-none`}
+                            required
+                        />
+                    </div>
+
                     {/* Schedule Date */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Schedule Date</label>
@@ -200,14 +232,18 @@ function AddSchedule() {
                     {/* Schedule Type */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Schedule Type</label>
-                        <input
-                            type="text"
+                        <select
                             name="scheduleType"
                             value={inputs.scheduleType}
                             onChange={handleChange}
                             className={`w-full p-2 mt-1 border ${errors.scheduleType ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring focus:ring-blue-200 focus:outline-none`}
                             required
-                        />
+                        >
+                            <option value="" disabled>Select schedule type</option>
+                            <option value="fix">Fix</option>
+                            <option value="flex">Flex</option>
+                        </select>
+                        {errors.scheduleType && <span className="text-red-500 text-sm">{errors.scheduleType}</span>}
                     </div>
 
                     {/* Start Time */}

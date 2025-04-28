@@ -88,6 +88,8 @@ function ScheduleDetails() {
                                     <th className="px-4 py-2 text-left text-gray-700 font-semibold">Module Name</th>
                                     <th className="px-4 py-2 text-left text-gray-700 font-semibold">Module ID</th>
                                     <th className="px-4 py-2 text-left text-gray-700 font-semibold">Email</th>
+                                    <th className="px-4 py-2 text-left text-gray-700 font-semibold">Lecturer Name</th>
+                                    <th className="px-4 py-2 text-left text-gray-700 font-semibold">Delivery Mode</th>
                                     <th className="px-4 py-2 text-left text-gray-700 font-semibold">Schedule Type</th>
                                     <th className="px-4 py-2 text-left text-gray-700 font-semibold">Date</th>
                                     <th className="px-4 py-2 text-left text-gray-700 font-semibold">Start Time</th>
@@ -102,6 +104,8 @@ function ScheduleDetails() {
                                         <td className="px-4 py-2">{schedule.moduleName}</td>
                                         <td className="px-4 py-2">{schedule.moduleId}</td>
                                         <td className="px-4 py-2">{schedule.email}</td>
+                                        <td className="px-4 py-2">{schedule.Lecturer}</td>
+                                        <td className="px-4 py-2">{schedule.DeliveryMode}</td>
                                         <td className="px-4 py-2">{schedule.scheduleType}</td>
                                         <td className="px-4 py-2">{formatDate(schedule.scheduleDate)}</td>
                                         <td className="px-4 py-2">{formatTime(schedule.startTime)}</td>

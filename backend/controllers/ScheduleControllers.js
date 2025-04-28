@@ -18,9 +18,9 @@ const getAllSchedules = async (req, res) => {
 
 // Add a schedule
 const addSchedules = async (req, res) => {
-    const { scheduleId, moduleName, email, moduleId, scheduleDate, scheduleType, startTime, endTime } = req.body;
+    const { scheduleId, moduleName, email, moduleId, scheduleDate, scheduleType, startTime, endTime, DeliveryMode, Lecturer } = req.body;
 
-    if (!scheduleId || !moduleName || !email || !moduleId || !scheduleDate || !scheduleType || !startTime || !endTime) {
+    if (!scheduleId || !moduleName || !email || !moduleId || !scheduleDate || !scheduleType || !startTime || !endTime || !DeliveryMode || !Lecturer) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -48,6 +48,8 @@ const addSchedules = async (req, res) => {
             scheduleType,
             startTime,
             endTime,
+            DeliveryMode,
+            Lecturer,
         });
 
         await schedules.save();

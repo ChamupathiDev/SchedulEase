@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -61,47 +60,15 @@ export default function Header() {
           <h1 className="font-bold">SchedulEase</h1>
         </Link>
         <ul className="flex gap-4 items-center">
-=======
-import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { FaRegCalendarAlt } from "react-icons/fa";
-
-export default function Header() {
-  const {currentUser} = useSelector(state => state.user);
-  return (
-    <div className="bg-black text-white">
-      <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
-        <Link to="/" className="flex items-center gap-2 whitespace-nowrap">
-          <FaRegCalendarAlt className="text-xl text-blue-600 gap-2" /> 
-          <h1 className="font-bold">SchedulEase</h1>
-        </Link>
-        <ul className="flex gap-4 ">
->>>>>>> main
           <Link to="/">
             <li>Home</li>
           </Link>
           <Link to="/schedule">
-<<<<<<< HEAD
             {currentUser ? <li>MySchedule</li> : <li></li>}
-=======
-            {currentUser ? (
-              <li>MySchedule</li>
-            ):(
-            <li></li>
-          )}
-          </Link>
-          <Link to="/course">
-            {currentUser ? (
-              <li>MyCourse</li>
-            ):(
-            <li></li>
-          )}
->>>>>>> main
           </Link>
           <Link to="/contact">
             <li>Contact us</li>
           </Link>
-<<<<<<< HEAD
           {currentUser ? (
             <div className="relative" ref={dropdownRef}>
               <img
@@ -133,16 +100,6 @@ export default function Header() {
               <li>Sign In</li>
             </Link>
           )}
-=======
-          <Link to="/profile">
-            {currentUser ? (
-              <img src={currentUser.profilePicture}  alt="profile"
-              className="h-7 w-7 rounded-full object-cover" />
-            ):(
-            <li>Sign In</li>
-          )}
-          </Link>
->>>>>>> main
         </ul>
       </div>
     </div>

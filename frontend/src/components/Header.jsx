@@ -63,6 +63,9 @@ export default function Header() {
           <Link to="/">
             <li>Home</li>
           </Link>
+          <Link to="/schedule">
+            {currentUser ? <li>MySchedule</li> : <li></li>}
+          </Link>
           <Link to="/contact">
             <li>Contact us</li>
           </Link>

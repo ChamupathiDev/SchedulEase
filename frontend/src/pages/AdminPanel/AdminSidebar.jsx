@@ -102,7 +102,8 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
               </Link>
             </li>
             <li className='mb-2 py-2 px-3 rounded hover:bg-gray-700 hover:text-white'>
-              <Link to="/module-home" className="flex items-center">
+
+              <Link to="/CMhome" className="flex items-center">
                 <FaTable className='w-5 h-5 mr-2' /> Tables
               </Link>
             </li>

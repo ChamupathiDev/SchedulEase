@@ -1,57 +1,66 @@
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import Header from "./components/Header";
+import PrivateRoute from "./components/PrivateRoute";
+import StudentViewSchedules from "./pages/StudentViewSchedule";
+import ScheduleDetails from "./pages/ScheduleDetails/ScheduleDetails";
+import AddSchedule from "./pages/AddSchedule/AddSchedule";
+import UpdateSchedule from "./pages/UpdateSchedule/UpdateSchedule";
+import AdminSidebar from "./pages/AdminPanel/AdminSidebar";
+import AdminLogin from "./pages/AdminPanel/AdminLogin";
+import AdminDashboard from "./pages/AdminPanel/AdminDashboard";
+import MoodView from "./pages/MoodView";
+import AdminUsers from "./pages/UserDetails/AdminUsers";
+import AdminEditUser from "./pages/UserDetails/AdminEditUser";
+import AddCourseModule from "./components/AddCourseModule";
+import CourseModuleHome from "./components/CourseModuleHome";
+import CourseTable from "./components/CourseTable";
+import UpdateCourse from "./components/UpdateCourse";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home/Home";
-import AddUser from "./components/AddUser/AddUser";
-import Users from "./components/UserDetails/Users";
-import UpdateUser from "./components/UpdateUser/UpdateUser";
-import Login from "./components/Login/Login";
-import ProtectedRoute from "./components/Login/ProtectedRoute";
-import StudentViewSchedule from "./components/StudentViewSchedule/StudentViewSchedule";
-import ScheduleDetails from "./components/ScheduleDetails/ScheduleDetails"; // Make sure this path is correct
-import AddSchedule from "./components/AddSchedule/AddSchedule";
-import UpdateSchedule from "./components/UpdateSchedule/UpdateSchedule";
-import AdminPanel from "./components/AdminPanel/adminPanel";
-import AdminNav from "./components/AdminPanel/AdminNav";
-import AdminSidebar from "./components/AdminPanel/AdminSidebar";
-import AdminDashboard from "./components/AdminPanel/AdminDashboard";
-import AdminLogin from "./components/AdminPanel/AdminLogin";
-import ScheduleBarChart from "./components/Charts/ScheduleBarChart";
 
-
-
-
-
-function App() {
+export default function App() {
   return (
-    <Router>
+    <BrowserRouter>
+    
+    <ToastContainer />
+      {/* header */}
+      <Header />
+      
       <Routes>
-        {/* Public Route - Login page should come before the Protected Routes */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/userdetails" element={<AdminUsers />} />
+        <Route path="/updateuser/:id" element={<AdminEditUser />} />
+        <Route path="/scheduledetails" element={<ScheduleDetails />} />
+        <Route path="/addschedule" element={<AddSchedule />} />
+        <Route path="/updateschedule/:id" element={<UpdateSchedule />} />
+        <Route path="/adminsidebar" element={<AdminSidebar />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/input-mood" element={<MoodView />} />
+        <Route path="/CMhome" element={<CourseModuleHome />} />
+        <Route path="/addcoursemodule" element={<AddCourseModule />} />
+        <Route path="/courseTable" element={<CourseTable />} />
+        <Route path="/updatecoursemodule/:id" element={<UpdateCourse />} />
 
-        {/* Protected Routes */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/mainhome" element={<Home />} />
-          <Route path="/adduser" element={<AddUser />} />
-          <Route path="/userdetails" element={<Users />} />
-          <Route path="/edit/:id" element={<UpdateUser />} />
-          <Route path="/viewstudentschedule" element={<StudentViewSchedule />} />
-          <Route path="/scheduledetails" element={<ScheduleDetails />} />
-          <Route path="/addschedule" element={<AddSchedule />} />
-          <Route path="/updateschedule/:id" element={<UpdateSchedule />} />
-          <Route path="/adminpanel" element={<AdminPanel />} />
-          <Route path="/adminsidebar" element={<AdminSidebar />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/schedulecharts" element={<ScheduleBarChart />} />
-
-
+        <Route element={<PrivateRoute />}>
+          <Route path="/schedule" element={<StudentViewSchedules />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
-export default App;
+

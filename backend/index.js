@@ -1,3 +1,4 @@
+
 import express from 'express'
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -11,6 +12,7 @@ import moodRoutes from './routes/mood.route.js'
 import http from 'http';
 import { initSocket } from './utils/socket.js';
 import adminRoutes from "./routes/user.route.js";
+import courseRoutes from "./routes/CourseRoutes.js";
 
 
 dotenv.config();
@@ -31,8 +33,7 @@ app.use('/api/auth', authRoutes);
 app.use("/api/schedules", scheduleRoutes);
 app.use('/api/moods', moodRoutes);
 app.use("/api/admin", adminRoutes);
-
-
+app.use("/api/", courseRoutes);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
@@ -57,6 +58,7 @@ app.use((err, req, res, next) => {
     // Initialize WebSocket after server is up
     initSocket(server);
 });
+
 
 
 

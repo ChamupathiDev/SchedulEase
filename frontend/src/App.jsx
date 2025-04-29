@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
@@ -16,6 +17,10 @@ import AdminDashboard from "./pages/AdminPanel/AdminDashboard";
 import MoodView from "./pages/MoodView";
 import AdminUsers from "./pages/UserDetails/AdminUsers";
 import AdminEditUser from "./pages/UserDetails/AdminEditUser";
+import AddCourseModule from "./components/AddCourseModule";
+import CourseModuleHome from "./components/CourseModuleHome";
+import CourseTable from "./components/CourseTable";
+import UpdateCourse from "./components/UpdateCourse";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -42,6 +47,10 @@ export default function App() {
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/input-mood" element={<MoodView />} />
+        <Route path="/" element={<CourseModuleHome />} />
+        <Route path="/addcoursemodule" element={<AddCourseModule />} />
+        <Route path="/courseTable" element={<CourseTable />} />
+        <Route path="/updatecoursemodule/:id" element={<UpdateCourse />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/schedule" element={<StudentViewSchedules />} />
@@ -53,5 +62,6 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
 
 

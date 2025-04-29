@@ -1,3 +1,4 @@
+
 🗓️ SchedulEase
 
 A versatile, intuitive web application for managing courses and schedules—with a unique, dynamic mood-based scheduler that adapts to how you feel.
@@ -87,4 +88,5 @@ A versatile, intuitive web application for managing courses and schedules—with
 
 
 Developed with ❤️ by the SchedulEase Team
+
 

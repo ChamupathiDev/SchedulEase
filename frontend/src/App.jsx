@@ -47,7 +47,7 @@ export default function App() {
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/input-mood" element={<MoodView />} />
-        <Route path="/" element={<CourseModuleHome />} />
+        <Route path="/CMhome" element={<CourseModuleHome />} />
         <Route path="/addcoursemodule" element={<AddCourseModule />} />
         <Route path="/courseTable" element={<CourseTable />} />
         <Route path="/updatecoursemodule/:id" element={<UpdateCourse />} />

@@ -2,5 +2,5 @@ projectKey=Schedulease
 serverUrl=http://localhost:9000
 serverVersion=25.4.0.105899
 dashboardUrl=http://localhost:9000/dashboard?id=Schedulease
-ceTaskId=dd98a778-3f87-423d-81cd-9f7268adfa42
-ceTaskUrl=http://localhost:9000/api/ce/task?id=dd98a778-3f87-423d-81cd-9f7268adfa42
+ceTaskId=b2ee19ff-27af-4ba5-a989-d84bd75988d1
+ceTaskUrl=http://localhost:9000/api/ce/task?id=b2ee19ff-27af-4ba5-a989-d84bd75988d1

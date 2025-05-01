@@ -17,12 +17,13 @@ import AdminDashboard from "./pages/AdminPanel/AdminDashboard";
 import MoodView from "./pages/MoodView";
 import AdminUsers from "./pages/UserDetails/AdminUsers";
 import AdminEditUser from "./pages/UserDetails/AdminEditUser";
-import AddCourseModule from "./components/AddCourseModule";
-import CourseModuleHome from "./components/CourseModuleHome";
-import CourseTable from "./components/CourseTable";
-import UpdateCourse from "./components/UpdateCourse";
+import AddCourseModule from "./pages/AddCourseModule";
+import CourseModuleHome from "./pages/CourseModuleHome";
+import CourseTable from "./pages/CourseTable";
+import UpdateCourse from "./pages/UpdateCourse";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScheduleBarChart from "./pages/Charts/ScheduleBarChart";
 
 
 export default function App() {
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/addcoursemodule" element={<AddCourseModule />} />
         <Route path="/courseTable" element={<CourseTable />} />
         <Route path="/updatecoursemodule/:id" element={<UpdateCourse />} />
+        <Route path="/schedule-chart" element={<ScheduleBarChart/>} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/schedule" element={<StudentViewSchedules />} />

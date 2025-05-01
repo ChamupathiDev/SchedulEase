@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import AdminNavandSidebar from "../AdminPanel/AdminNavAndSidebar";
 
-const URL = "http://localhost:5000/schedules";
+const URL = "api/schedules";
 
 const fetchSchedules = async () => {
     return await axios.get(URL).then((res) => res.data);

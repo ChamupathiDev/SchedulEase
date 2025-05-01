@@ -69,7 +69,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
               </Link>
             </li>
             <li className='mb-2 py-2 px-3 rounded hover:bg-gray-700 hover:text-white'>
-              <Link to="/schedule/charts" className="flex items-center">
+              <Link to="/schedule-chart" className="flex items-center">
                 <FaChartBar className='w-5 h-5 mr-2' /> Charts
               </Link>
             </li>

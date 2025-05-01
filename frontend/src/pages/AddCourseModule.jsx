@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import AdminNavandSidebar from "./AdminPanel/AdminNavAndSidebar";
 
 function AddCourseModule() {
     const navigate = useNavigate();
@@ -138,6 +139,9 @@ function AddCourseModule() {
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-slate-400 to-gray-300">
+         <div className="fixed top-0 left-0 z-50">
+                <AdminNavandSidebar />
+               </div>
             <div className="max-w-md mx-auto py-12 px-4 sm:px-6 lg:px-8">
                 <div className="bg-white shadow rounded-lg p-8">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">

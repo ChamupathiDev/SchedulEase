@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"; // Import the toast function
+import AdminNavandSidebar from "./AdminPanel/AdminNavAndSidebar";
 
 function UpdateCourse() {
     const [inputs, setInputs] = useState({
@@ -111,6 +112,9 @@ function UpdateCourse() {
         <div>
             
         <div className="min-h-screen bg-gradient-to-r from-slate-400 to-gray-300 ">
+         <div className="fixed top-0 left-0 z-50">
+                <AdminNavandSidebar />
+               </div>
             <div className="max-w-md mx-auto py-12 px-4 sm:px-6 lg:px-8">  </div>
             <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
                 <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Update Course Module</h1>

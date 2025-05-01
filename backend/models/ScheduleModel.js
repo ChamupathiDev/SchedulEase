@@ -65,10 +65,16 @@ const scheduleSchema = new Schema({
         type: Date
     },
     DeliveryMode: {
-        type: String
+        type: String,
+        enum: {
+            values: ["Lecture", "Lab"],
+            message: "DeliveryMode must be either 'Lecture' or 'Lab'."
+        },
+        required: [true, "DeliveryMode is required."]
     },
     Lecturer: {
-        type: String
+        type: String,
+        required: [true, "Lecturer is required."]
     }
 });
 

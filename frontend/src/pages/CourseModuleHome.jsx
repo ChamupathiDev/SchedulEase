@@ -1,21 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPlusCircle, FaListAlt, FaTrash, FaEdit } from "react-icons/fa";
+import AdminNavandSidebar from "./AdminPanel/AdminNavAndSidebar";
 
 const CourseModuleHome = () => {
   const navigate = useNavigate();
 
   return (
+   
     <div className="min-h-screen bg-gradient-to-r from-slate-300 to-slate-500">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-sm shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <h1 className="text-xl font-bold text-indigo-600">SchedulEase</h1>
-          </div>
-        </div>
-      </nav>
-
+       <div className="fixed top-0 left-0 z-50">
+        <AdminNavandSidebar />
+       </div>
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
@@ -94,6 +90,7 @@ const CourseModuleHome = () => {
         </div>
       </footer>
     </div>
+    
   );
 };
 

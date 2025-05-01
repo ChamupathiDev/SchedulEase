@@ -5,6 +5,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faSearch, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import AdminNavandSidebar from "./AdminPanel/AdminNavAndSidebar";
 
 
 import jsPDF from "jspdf";
@@ -121,6 +122,9 @@ function CourseTable() {
     return (
       
         <div className="min-h-screen bg-gradient-to-r from-slate-300 to-gray-100">
+         <div className="fixed top-0 left-0 z-50">
+                <AdminNavandSidebar />
+               </div>
             <div className="container mx-auto p-5 ">
                 <h1 className="text-4xl font-bold text-center mb-6 text-gray-800">Course Modules Display</h1>
                 <div className="mt-5">

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon backend/index.js",
     "start": "node backend/index.js",
-    "consume": "nodemon backend/utils/kafkaAnalyticsConsumer.js"
+    "consumer": "nodemon backend/consumers/analyticsConsumer.js"
   },
   "keywords": [],
   "author": "",

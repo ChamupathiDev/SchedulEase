@@ -13,6 +13,7 @@ import http from 'http';
 import { initSocket } from './utils/socket.js';
 import adminRoutes from "./routes/user.route.js";
 import courseRoutes from "./routes/CourseRoutes.js";
+import analyticsRoutes from './routes/analytics.js';
 
 
 
@@ -35,6 +36,7 @@ app.use("/api/schedules", scheduleRoutes);
 app.use('/api/moods', moodRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/", courseRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 
 app.use((err, req, res, next) => {

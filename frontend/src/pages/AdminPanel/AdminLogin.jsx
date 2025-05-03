@@ -1,12 +1,11 @@
-// src/components/AdminLogin.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,14 +16,14 @@ const AdminLogin = () => {
     } else {
       setError('');
       console.log('Logged in successfully');
-      navigate('/admindashboard'); // Navigate to AdminDashboard on successful login
+      navigate('/admindashboard');
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600">
+      <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg w-96 backdrop-filter backdrop-blur-md">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Admin Login</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -32,7 +31,7 @@ const AdminLogin = () => {
             <input
               type="text"
               id="username"
-              className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
@@ -43,7 +42,7 @@ const AdminLogin = () => {
             <input
               type="password"
               id="password"
-              className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
@@ -51,7 +50,7 @@ const AdminLogin = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             Login
           </button>

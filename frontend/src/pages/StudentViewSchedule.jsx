@@ -60,7 +60,7 @@ const StudentViewSchedules = () => {
 
   // Define a threshold (in milliseconds) for considering an update "recent"
   // For example, here we use 5 minutes.
-  const highlightThreshold = 5 * 60 * 1000; // 5 minutes in milliseconds
+  const highlightThreshold = 2 * 60 * 1000; // 5 minutes in milliseconds
   const now = new Date();
 
   return (

@@ -120,19 +120,27 @@ export const analyzeMood = async (req, res) => {
 
     // Publish a Kafka event for logging/analytics purposes
     await kafkaProducer.send({
-      topic: "scheduleAdjustments",
-      messages: [
-        {
-          value: JSON.stringify({
-            email,
-            moodText,
-            score,
-            suggestion,
-            updatedSchedules,
-          }),
-        },
-      ],
-    });
+  topic: "scheduleAdjustments",
+  messages: [
+    {
+      value: JSON.stringify({
+        email,
+        moodText,
+        score,
+        suggestion,
+        adjustments: proposals.map((p) => ({
+          moduleId: p.moduleId,
+          oldStartTime: p.oldStartTime,
+          oldEndTime: p.oldEndTime,
+          proposedStartTime: p.proposedStartTime,
+          proposedEndTime: p.proposedEndTime,
+          moduleName: p.moduleName, // optional but useful
+        })),
+      }),
+    },
+  ],
+});
+
 
     return res.status(200).json({
       message: "Schedule updated based on your mood",

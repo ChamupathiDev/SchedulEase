@@ -124,7 +124,7 @@ export default function SignUp() {
         error.response ? error.response.data : error.message
       );
       setLoading(false);
-      const errorMsg = err.response?.data?.message || err.message;
+      const errorMsg = err.response?.data?.message || error.message;
       toast.error(errorMsg || "Something went wrong!");
     }
   };

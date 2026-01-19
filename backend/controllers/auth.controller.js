@@ -22,7 +22,7 @@ export const signin = async (req, res, next) => {
     if (!validUser) return next(errorHandler(404, "User not found"));
     const validPassowrd = bcryptjs.compareSync(password, validUser.password);
     if (!validPassowrd) return next(errorHandler(401, "wrong credentials"));
-    const token = jwt.sign({ email: validUser.email }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: validUser._id, email: validUser.email, role: validUser.role }, process.env.JWT_SECRET);
     const { password: hashedPassword, ...rest } = validUser._doc;
     const expiryDate = new Date(Date.now() + 3600000); // 1 hour
     res
@@ -38,7 +38,7 @@ export const google = async (req, res, next) => {
   try {
     const user =  await User.findOne({ email: req.body.email})
     if (user) {
-      const token = jwt.sign({ email: user.email}, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: user._id, email: user.email, role: user.role}, process.env.JWT_SECRET);
       const { password: hashedPassword, ...rest } = user._doc;
       const expiryDate = new Date(Date.now() + 3600000); // 1 hour
       res.cookie("access_token", token, { httpOnly: true, expires: expiryDate }).status(200)
@@ -54,7 +54,7 @@ export const google = async (req, res, next) => {
         profilePicture: req.body.photo
       });
       await newUser.save();
-      const token = jwt.sign({ email: newUser.email}, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: newUser._id, email: newUser.email, role: newUser.role}, process.env.JWT_SECRET);
       const { password: hashedPassword2, ...rest } = newUser._doc;
       const expiryDate = new Date(Date.now() + 3600000); // 1 hour
       res.cookie("access_token", token, { httpOnly: true, expires: expiryDate }).status(200)

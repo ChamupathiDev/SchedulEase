@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -7,18 +8,27 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    setError("");
 
-    // Dummy validation
-    if (username !== 'admin' || password !== 'admin1234') {
-      setError('Invalid username or password');
-    } else {
-      setError('');
-      console.log('Logged in successfully');
-      navigate('/admindashboard');
+    const res = await axios.post(
+      "/api/auth/signin",
+      { email: username, password },
+      { withCredentials: true }
+    );
+
+    if (res.data.role !== "admin") {
+      setError("Admin only");
+      return;
     }
-  };
+
+    navigate("/admindashboard");
+  } catch (err) {
+    setError(err.response?.data?.message || err.message);
+  }
+};
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600">

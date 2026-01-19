@@ -31,7 +31,7 @@ export default function SignIn() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await axios.post("/api/auth/signin", formData);
+      const res = await axios.post("/api/auth/signin", formData, { withCredentials: true });
       dispatch(signInSuccess(res.data));
       toast.success("Login successful!");
       setTimeout(() => {

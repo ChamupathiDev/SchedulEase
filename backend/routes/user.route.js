@@ -3,6 +3,7 @@ import multer from 'multer';
 import { test, updateUser, deleteUser, uploadProfilePicture, adminGetUsers, adminGetUser, adminUpdateUser, adminDeleteUser } from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 import { userValidationRules, validate } from '../utils/validators.js';
+import { verifyAdmin } from '../utils/verifyAdmin.js';
 
 const router = express.Router();
 
@@ -34,9 +35,9 @@ router.post(
     uploadProfilePicture
   );
 
-  router.get("/users", adminGetUsers);
-router.get("/user/:id", adminGetUser);
-router.put("/user/:id",userValidationRules(), validate, adminUpdateUser);
-router.delete("/user/:id", adminDeleteUser);
+router.get("/users", verifyToken, verifyAdmin, adminGetUsers);
+router.get("/user/:id", verifyToken, verifyAdmin, adminGetUser);
+router.put("/user/:id", verifyToken, verifyAdmin, userValidationRules(), validate, adminUpdateUser);
+router.delete("/user/:id", verifyToken, verifyAdmin, adminDeleteUser);
 
 export default router;

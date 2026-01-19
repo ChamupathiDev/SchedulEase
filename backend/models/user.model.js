@@ -61,6 +61,11 @@ const userSchema = new mongoose.Schema(
       default:
         "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png",
     },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+},
   },
   { timestamps: true }
 );

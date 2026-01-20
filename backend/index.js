@@ -26,7 +26,7 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "process.env.PORT_URL",
   credentials: true,
 }));
 // Serve files in the uploads folder
